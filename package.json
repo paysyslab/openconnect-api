@@ -9,7 +9,7 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "gh-pages -d build",
     "lint:openapi": "redocly lint static/openapi/openconnect-api.yaml",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"
