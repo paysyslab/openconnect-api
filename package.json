@@ -1,15 +1,16 @@
 {
-  "name": "open-cms-paysyslabs",
-  "version": "0.0.0",
+  "name": "openconnect-api",
+  "version": "1.0.0",
   "private": true,
+  "description": "OpenConnect API Documentation – Enterprise Integration Middleware for Real-Time Payments",
   "scripts": {
-    "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
+    "lint:openapi": "redocly lint static/openapi/openconnect-api.yaml",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"
   },
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "@redocly/cli": "^1.16.0",
     "gh-pages": "^6.3.0"
   },
   "browserslist": {

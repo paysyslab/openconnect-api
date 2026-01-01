@@ -62,3 +62,55 @@ export default function HomepageFeatures() {
     </section>
   );
 }
+
+function HomepageHeader() {
+  return (
+    <header className={styles.futuristicHeader}>
+      {/* Background animation layer */}
+      <div className={styles.backgroundAnimation} />
+
+      <div className={styles.headerContent}>
+        <img
+          src={useBaseUrl('/img/OpenConnect.png')}
+          alt="OpenConnect"
+          className={styles.headerImage}
+        />
+
+        <Heading as="h1" className={styles.mainTitle}>
+          OpenConnect
+        </Heading>
+
+        <p className={styles.subtitle}>
+          Enterprise Integration Middleware for Real-Time Payments
+        </p>
+
+        <div className={styles.ctaContainer}>
+          <Link className={styles.ctaButton} to="/introduction">
+            Get Started
+          </Link>
+
+          <Link
+            className={styles.ctaButtonSecondary}
+            to="/api-specifications"
+          >
+            API Reference
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default function Home() {
+  const { siteConfig } = useDocusaurusContext();
+
+  return (
+    <Layout
+      title={siteConfig.title}
+      description="Enterprise-grade middleware for P2P, P2M, IBFT, Billing, and Title Fetch integrations"
+    >
+      <HomepageHeader />
+      <HomepageFeatures />
+    </Layout>
+  );
+}

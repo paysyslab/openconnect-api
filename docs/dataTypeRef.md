@@ -1,90 +1,89 @@
-# Data Type References
-
-This section provides a complete reference for all data types, enumerations, and validation rules used across OpenCMS APIs.  
-It ensures data consistency and compatibility between Authentication, Card Lifecycle, Inquiry, and Limit & Preferences APIs.
-
+---
+id: dataTypeRef
+title: Data Type Reference
+sidebar_position: 2
 ---
 
-# Overview
+# Data Type References
+![OpenConnect Functional Flow](/img/OC-system.png)
 
-- OpenCMS APIs use **JSON** for all requests and responses.  
-- Each field follows a strict data type definition to ensure schema validation, API security, and predictable integration.
+
+This document serves as a reference for the data types, enumerations, and validation rules used across OpenConnect APIs, ensuring data consistency and interoperability between various services.
 
 ---
 
 # Standard Data Types
 
-| Type | Description | Example | Allowed Format / Range | Common Fields |
-|------|-------------|---------|------------------------|----------------|
-| **string** | Text or alphanumeric data | `"OpenCMS"` | Up to 64 characters | CardId, UserName, Status |
-| **integer** | Whole number without decimals | `1001` | 0–999999999 | Amount, CustomerId |
-| **long** | Large numeric identifier | `23132313131313` | 13–20 digits | RRN, TransactionId |
-| **boolean** | True/false values | `true` | Boolean literal | IsActive, IsVerified |
-| **date** | ISO 8601 date | `"2025-04-15"` | YYYY-MM-DD | CardExpiryDate, DOB |
-| **dateTime** | Date + time with timezone | `"2025-04-15T10:45:30Z"` | YYYY-MM-DDThh:mm:ssZ | CreatedAt, UpdatedAt |
-| **decimal** | Decimal number (2 digits) | `2500.75` | 0–99999999.99 | Amount, Fee |
-| **enum** | Predefined value set | `"Active"` | See enum section | CardStatus, TxnType |
-| **object** | Key-value structure | `{ "cardId": "123" }` | JSON object | Customer, Data |
-| **array** | List of values or objects | `["ATM","POS","Ecom"]` | JSON array | AllowedChannels |
+| Type       | Description                                   | Example                | Allowed Format / Range | Common Fields       |
+|------------|-----------------------------------------------|------------------------|------------------------|---------------------|
+| **string** | Alphanumeric text                             | `"OpenConnect"`         | Up to 64 characters     | accountId, userName |
+| **integer**| Whole number                                  | `1001`                 | 0–999999999            | amount, customerId  |
+| **long**   | Large numeric identifier                     | `23132313131313`       | 13–20 digits           | rrn, transactionId  |
+| **boolean**| True/False values                             | `true`                 | Boolean literal        | isActive, isVerified|
+| **date**   | Date in ISO 8601 format                      | `"2025-04-15"`         | YYYY-MM-DD             | accountExpiryDate   |
+| **dateTime**| Date and time in ISO 8601 format with timezone | `"2025-04-15T10:45:30Z"` | YYYY-MM-DDThh:mm:ssZ | createdAt, updatedAt|
+| **decimal**| Numeric value with decimal precision (2 digits) | `2500.75`             | 0–99999999.99          | amount, fee         |
+| **enum**   | Predefined set of values                     | `"Active"`             | See Enum section       | accountStatus, txnType|
+| **object** | JSON-like structure                          | `{"accountId": "123"}` | JSON object            | customer, data      |
+| **array**  | List of values or objects                     | `["ATM", "POS", "Ecom"]` | JSON array           | allowedChannels     |
 
 ---
 
 # Enumerations
 
-## Card Status Enumeration
+## Account Status
 
-| Value | Description |
-|--------|-------------|
-| **Fresh** | Card generated but not activated |
-| **Active** | Card is active for transactions |
-| **Warm** | Temporarily blocked / under review |
-| **Hot** | Permanently blocked / fraud flagged |
-| **Expired** | Card validity ended |
-| **Replaced** | Card replaced with new one |
-
----
-
-## Transaction Type Enumeration
-
-| Value | Description |
-|--------|-------------|
-| **Credit** | Adds funds |
-| **Debit** | Deducts funds |
-| **Reversal** | Reverses a transaction |
-| **Adjustment** | Manual debit/credit by back office |
+| Value   | Description                  |
+|---------|------------------------------|
+| **Fresh**   | Account generated but not activated   |
+| **Active**  | Account is active for transactions    |
+| **Frozen**  | Temporarily blocked or under review  |
+| **Blocked** | Permanently blocked                |
+| **Expired** | Account validity ended            |
 
 ---
 
-## Identification Type Enumeration
+## Transaction Type
 
-| Value | Description |
-|--------|-------------|
-| **CNIC** | Pakistan National ID |
-| **Passport** | Passport number |
-| **NTN** | Business tax number |
-| **EmployeeID** | Internal staff identifier |
+| Value     | Description                |
+|-----------|----------------------------|
+| **Credit** | Adds funds to the account  |
+| **Debit**  | Deducts funds from the account |
+| **Reversal** | Reverses a previous transaction |
+| **Adjustment** | Manual adjustments to accounts or funds |
+
+---
+
+## Identification Type
+
+| Value    | Description               |
+|----------|---------------------------|
+| **CNIC** | Pakistan National ID       |
+| **Passport** | Passport number            |
+| **NTN**  | National Tax Number         |
+| **EmployeeID** | Employee internal ID       |
 
 ---
 
 # Naming Conventions
 
-| Convention | Usage | Example |
-|------------|--------|---------|
-| **camelCase** | API request/response parameters | customerId, productCode |
-| **PascalCase** | Database models / UI labels | CardId, ResponseCode |
-| **snake_case** | System logs, internal configs | transaction_type, card_status |
+| Convention | Usage                | Example             |
+|------------|----------------------|---------------------|
+| **camelCase** | API parameters         | accountId, txnType |
+| **PascalCase** | UI/Database labels     | AccountId, ResponseCode |
+| **snake_case** | Internal configs       | transaction_type, account_status |
 
 ---
 
 # Validation Rules
 
-| Validation Type | Description | Applies To |
-|------------------|-------------|------------|
-| **Mandatory Fields** | Must be provided in every request | cardId, rrn, productCode |
-| **Length Validation** | Must not exceed set limit | iban, rrn, idValue |
-| **Pattern Validation** | Regex-based validation | CNIC → `[0-9]{13}` |
-| **Enum Validation** | Only predefined values allowed | cardStatus, txnType |
-| **Data Type Check** | Reject if type mismatch | All fields |
+| Validation Type | Description            | Applies To |
+|-----------------|------------------------|------------|
+| **Mandatory Fields** | Fields that must always be present in requests | accountId, rrn, txnAmount |
+| **Length Check** | Field length must not exceed the maximum allowed | iban, rrn, idValue |
+| **Pattern Check** | Field must match a regex pattern | CNIC → `[0-9]{13}` |
+| **Enum Check** | Field must be one of the predefined values | accountStatus, txnType |
+| **Data Type Check** | Field must match the defined data type | All fields |
 
 ---
 
@@ -93,7 +92,7 @@ It ensures data consistency and compatibility between Authentication, Card Lifec
 ```json
 {
   "customerId": "10000045",
-  "cardId": "100000245",
+  "accountId": "100000245",
   "rrn": "23132313131313",
   "idType": "CNIC",
   "idValue": "4210101010101",
@@ -104,8 +103,7 @@ It ensures data consistency and compatibility between Authentication, Card Lifec
   "createdAt": "2025-04-15T10:45:30Z"
 }
 
-Validation Output Example
-
+Response Validation Output Example
 | Field           | Validation Type   | Result | Message                 |
 | --------------- | ----------------- | ------ | ----------------------- |
 | customerId      | Length Check      | Pass   | Valid                   |
@@ -114,22 +112,10 @@ Validation Output Example
 | transactionType | Enum Validation   | Fail   | Must be Credit or Debit |
 
 
-## Developer Notes
+Developer Notes
 
-- All numeric values must be sent without commas or formatting.
+Ensure all numeric values are sent without formatting (e.g., no commas or currency symbols).
 
-- Any invalid field triggers this error:
+All nested JSON objects must follow OpenConnect’s schema rules.
 
-All numeric values must be sent without commas or formatting.
-
-Any invalid field triggers this error:
-
-- Nested JSON objects must follow OpenCMS schema rules.
-
-- Always validate API payloads before sending requests.
-
-## Next Steps
-
-- Continue to Response Codes & Error Handling
-- Explore Card Lifecycle APIs
-- Test with API Explorer
+Always validate API payloads before sending requests.

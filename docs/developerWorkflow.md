@@ -1,203 +1,98 @@
+---
+id: developerworkflow
+title: Developer Workflow
+sidebar_position: 3
+---
+
+
+
 # Developer Workflow
 
-Integrate with OpenCMS API for card lifecycle management, authentication, inquiries, limits, and preferences.
+![OpenConnect Functional Flow](/img/OC-architecture.png)
+
+This document outlines the step-by-step workflow for developers working on the OpenConnect project, from development to deployment. It covers API development, integration, testing, and version control processes.
+
+## 1. API Development
+
+### A. Designing APIs
+- **Specification Document**: All APIs should adhere to the OpenConnect API specifications.
+- **Data Formats**: APIs should support JSON as the data format for both requests and responses.
+- **Standardization**: Ensure that all endpoints follow RESTful conventions (e.g., use of appropriate HTTP verbs, status codes).
+- **Authentication**: All API endpoints must require a valid JWT token for authorization.
+
+### B. API Development Process
+1. **Create a new API Endpoint**:
+   - **Request**: Define the input parameters and request body.
+   - **Response**: Specify the output parameters and response body.
+   - **Error Handling**: Implement error responses with appropriate status codes and messages.
+   - **Versioning**: Always specify the API version (e.g., `/api/v1/`).
+2. **Database Integration**: Use existing OpenConnect database models for data storage and retrieval.
+3. **Security**: Ensure all APIs are secure using industry standards such as Mutual TLS, JWT, and PKI certificates.
+4. **Logging**: Implement logging mechanisms for API calls (success, failure, error tracking).
+
+### C. API Integration
+- **External Integrations**: OpenConnect interacts with third-party services (e.g., payment gateways, SMS gateways) through APIs.
+- **Internal Integrations**: OpenConnect’s internal microservices communicate using REST APIs and message queues (e.g., RabbitMQ).
+
+## 2. Testing
+
+### A. Unit Testing
+- **Objective**: Ensure that each API function performs as expected in isolation.
+- **Tools**: Use **JUnit** for Java-based testing or **Mocha** for Node.js services.
+- **Test Cases**:
+  - Test successful responses for valid inputs.
+  - Test error responses for invalid or missing inputs.
+  - Test edge cases for data boundaries.
+
+### B. Integration Testing
+- **Objective**: Ensure that all components of the system work together seamlessly.
+- **Tools**: Use **Postman** for manual API testing and **Cypress** for end-to-end testing.
+- **Test Scenarios**:
+  - Test complete API flows from request to response.
+  - Test interactions with external services (e.g., payment processors).
+
+### C. Continuous Integration (CI)
+- **Tool**: Jenkins or GitHub Actions for automating build and test processes.
+- **Pipeline**:
+  1. Code is committed to the Git repository.
+  2. The pipeline triggers a build and runs unit and integration tests.
+  3. If all tests pass, the code is deployed to the staging environment for further testing.
+
+## 3. Deployment
+
+### A. Staging and Production Environments
+- **Staging**: All new features are first deployed to a staging environment for real-world testing.
+- **Production**: After successful validation in staging, the code is pushed to the production environment.
+
+### B. Versioning
+- **Semantic Versioning**: Follow `MAJOR.MINOR.PATCH` versioning (e.g., `1.0.0` for the first release, `1.1.0` for minor feature additions).
+- **Changelog**: Maintain a changelog for each version update, highlighting added features, fixes, and breaking changes.
+
+## 4. Code Review
+
+### A. Review Process
+- **Peer Reviews**: All code must undergo peer review before merging into the main branch.
+- **Code Style**: Adhere to the **Java code style guide** or **Node.js code style** (depending on the language used).
+- **Security Audits**: Ensure that no sensitive data is hard-coded, and all credentials are secured using environment variables.
+
+## 5. Documentation
+
+### A. API Documentation
+- **API Specifications**: Use **Swagger/OpenAPI** for auto-generating API documentation.
+- **User Guides**: Provide clear documentation for developers integrating with OpenConnect APIs, including examples, error handling, and authentication procedures.
+
+### B. Developer Wiki
+- Maintain a **developer wiki** with detailed instructions on setting up the local development environment, running tests, and troubleshooting common issues.
 
 ---
-
-## 1 Authentication
-
-Obtain a JWT token to authorize all API requests.
-
-**Endpoint:** `POST /api/v1/authenticate`
-
-**Request:**
-```json
-{
-  "username": "partner_user",
-  "password": "s3cr3t#Key"
-}
-```
-
-**Response:**
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "expiry": "1737620181064"
-}
-```
-
-**Header for all requests:**
-```
-X-Auth-Token: eyJhbGciOiJI...
-```
----
-
-## 2 Card Lifecycle (Create → Activate)
-
-### A. Create Card
-
-Issue a physical or virtual card using `/api/v1/Card/create`.
-
-**Request:**
-```json
-{
-  "idValue": "4220142163583",
-  "idType": "CNIC",
-  "productCode": "DEBIT001",
-  "embossName": "MEGAN ROSS",
-  "virtual": true,
-  "idempotencyKey": "f0d32e10-91d7-4029-8ad3-1a70b8c93d7a",
-  "rrn": "21212121232"
-}
-```
-
-### B. Activate Card / Generate PIN
-
-Activate the card using `/activateCard`.
-
-**Request:**
-```json
-{
-  "idType": "CNIC",
-  "idValue": "4220142163583",
-  "format": "01",
-  "pin": "BASE64ENC_PIN",
-  "rrn": "21212121232",
-  "transactionDate": "2025-01-21T05:06:14.875Z"
-}
-```---
-
-## 3 Card Inquiry
-
-Retrieve all cards linked to a customer using `/getCardsByCustomer`.
-
-**Endpoint:** `GET /getCardsByCustomer/{idValue}/{rrn}`
-
-**Response:**
-```json
-{
-  "responseCode": "00",
-  "responseDescription": "OK",
-  "data": {
-    "cardList": [
-      {
-        "cardId": 202,
-        "cardNumber": "22058*****000269",
-        "cardStatus": "Fresh",
-        "productName": "PayPak Pink Cards"
-      }
-    ]
-  }
-}
-```
----
-
-## 4 Card Limits
-
-Set or update card transaction limits using `/setCustomerCardLimits`.
-
-**Request:**
-```json
-{
-  "idType": "CNIC",
-  "idValue": "4220142163583",
-  "dailyLimit": 50000,
-  "perTxnLimit": 20000,
-  "channel": "ECOM",
-  "rrn": "21212121232"
-}
-```---
-
-## 5 Block Rules
-
-### Get Rules
-
-Retrieve card block rules using `/getCardBlockRules`.
-
-**Request:**
-```json
-{
-  "cardId": 3,
-  "type": "ALL",
-  "rrn": "21212121232"
-}
-```
-
-### Update Rules
-
-Update card block rules using `/updateCardBlockRules`.
-
-**Request:**
-```json
-{
-  "cardId": 3,
-  "countryCodes": [{ "countryAlpha3Code": "ARG", "status": "ACTIVE" }],
-  "mcc": [{ "code": "4111", "status": "ACTIVE" }],
-  "rrn": "21212121232"
-}
-```---
-
-## 6 Channel Preferences
-
-### Get Preferences
-
-Retrieve customer channel preferences using `/getCustomerChannelPreferences`.
-
-**Endpoint:** `GET /getCustomerChannelPreferences/{idValue}/{rrn}`
-
-### Update Preferences
-
-Update customer channel preferences using `/updateCustomerChannelPreferences`.
-
-**Request:**
-```json
-{
-  "idType": "CNIC",
-  "idValue": "4220142163583",
-  "preferences": [
-    { "channelCode": "ECOM", "enabled": true }
-  ],
-  "rrn": "21212121232"
-}
-```---
-
-## 7 Card Status
-
-Block or re-activate a card using `/setCardStatus`.
-
-**Request:**
-```json
-{
-  "cardId": 12345,
-  "status": "BLOCKED",
-  "reason": "Customer request",
-  "rrn": "21212121232"
-}
-```---
-
-## 8 Error Handling
-
-All API failures return a standard error structure.
-
-**Error Response:**
-```json
-{
-  "responseCode": "99",
-  "responseDescription": "Invalid parameter or card not found"
-}
-```
-
-Refer to the Response Codes section for complete error mappings.
 
 ## Workflow Summary
 
-| Step | Description          | Example                                  |
-| ---- | -------------------- | ---------------------------------------- |
-| 1    | Obtain token         | `/api/v1/authenticate`                   |
-| 2    | Create/activate card | `/api/v1/Card/create`, `/activateCard`   |
-| 3    | Fetch details        | `/getCardsByCustomer`, `/getCardDetails` |
-| 4    | Configure limits     | `/setCustomerCardLimits`                 |
-| 5    | Apply restrictions   | `/updateCardBlockRules`                  |
-| 6    | Manage preferences   | `/updateCustomerChannelPreferences`      |
-| 7    | Manage status        | `/setCardStatus`                         |
-| 8    | Handle errors        | `responseCode + responseDescription`     |
+| Step | Description | Example |
+|------|-------------|---------|
+| 1    | Design API endpoints | `/api/v1/paysyslabs/payments/transfer1link` |
+| 2    | Develop endpoints | `POST /api/v1/paysyslabs/payments/transfer1link` |
+| 3    | Write Unit Tests | `@Test public void testTransfer1Link() {...}` |
+| 4    | Run Integration Tests | `POST /api/v1/paysyslabs/payments/transfer1link` |
+| 5    | Deploy to Staging | `git push origin staging` |
+| 6    | Deploy to Production | `git push origin master` |

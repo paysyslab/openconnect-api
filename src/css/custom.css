@@ -1,30 +1,219 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Global styles for OpenConnect Docusaurus site
+ * Improves typography, spacing, contrast, navbar/buttons, and code blocks.
  */
 
-/* You can override the default Infima variables here. */
+/* ---------- Theme Tokens (Light) ---------- */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Brand (teal/green) */
+  --ifm-color-primary: #0ea5a4;
+  --ifm-color-primary-dark: #0b8b8a;
+  --ifm-color-primary-darker: #097f7e;
+  --ifm-color-primary-darkest: #076564;
+  --ifm-color-primary-light: #12b7b6;
+  --ifm-color-primary-lighter: #18c0bf;
+  --ifm-color-primary-lightest: #36d0cf;
+
+  /* Typography */
+  --ifm-font-family-base: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+
+  /* Layout */
+  --ifm-container-width: 1200px;
+  --ifm-spacing-horizontal: 1.25rem;
+  --ifm-global-radius: 12px;
+
+  /* Surface + text */
+  --oc-surface: #ffffff;
+  --oc-surface-2: #f6f8fb;
+  --oc-border: rgba(15, 23, 42, 0.12);
+  --oc-text: #0f172a;
+  --oc-text-muted: rgba(15, 23, 42, 0.72);
+
+  /* Code */
+  --ifm-code-font-size: 92%;
+  --ifm-code-border-radius: 10px;
+  --docusaurus-highlighted-code-line-bg: rgba(14, 165, 164, 0.10);
+
+  /* Misc */
+  --ifm-card-border-radius: 16px;
+  --ifm-navbar-height: 4.25rem;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ---------- Theme Tokens (Dark) ---------- */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #22d3ee;
+  --ifm-color-primary-dark: #1fbdd4;
+  --ifm-color-primary-darker: #1bb1c7;
+  --ifm-color-primary-darkest: #178ea2;
+  --ifm-color-primary-light: #36daf0;
+  --ifm-color-primary-lighter: #4be0f3;
+  --ifm-color-primary-lightest: #78e9f7;
+
+  --oc-surface: #0b1220;
+  --oc-surface-2: #0f172a;
+  --oc-border: rgba(148, 163, 184, 0.18);
+  --oc-text: #e5e7eb;
+  --oc-text-muted: rgba(229, 231, 235, 0.72);
+
+  --docusaurus-highlighted-code-line-bg: rgba(34, 211, 238, 0.14);
+}
+
+/* ---------- Base Improvements ---------- */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: var(--oc-text);
+  background: var(--oc-surface);
+}
+
+/* Links: cleaner underline behavior */
+a {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--oc-border);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(11, 18, 32, 0.75);
+}
+
+.navbar__logo img {
+  height: 34px;
+  width: auto;
+}
+
+.navbar__item.navbar__link {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.navbar__item.navbar__link--active {
+  color: var(--ifm-color-primary);
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.button--primary {
+  box-shadow: 0 10px 25px rgba(14, 165, 164, 0.22);
+}
+
+.button--secondary {
+  border: 1px solid var(--oc-border);
+}
+
+/* ---------- Cards / Containers ---------- */
+.card {
+  border-radius: var(--ifm-card-border-radius);
+  border: 1px solid var(--oc-border);
+  background: var(--oc-surface-2);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+}
+
+[data-theme='dark'] .card {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Docs: better readability ---------- */
+.markdown {
+  color: var(--oc-text);
+}
+
+.markdown p,
+.markdown li {
+  color: var(--oc-text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  color: var(--oc-text);
+  letter-spacing: -0.2px;
+}
+
+.markdown h1 {
+  font-size: 1.9rem; /* smaller, cleaner */
+}
+
+.markdown h2 {
+  font-size: 1.4rem;
+  margin-top: 2.2rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--oc-border);
+}
+
+.markdown hr {
+  border-color: var(--oc-border);
+}
+
+/* ---------- Code blocks ---------- */
+pre,
+code {
+  border-radius: var(--ifm-code-border-radius);
+}
+
+.theme-code-block {
+  border: 1px solid var(--oc-border);
+  background: rgba(15, 23, 42, 0.03);
+}
+
+[data-theme='dark'] .theme-code-block {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+code {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* ---------- Sidebar ---------- */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--oc-border);
+}
+
+.menu__link {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.menu__link--active {
+  background: rgba(14, 165, 164, 0.10);
+  color: var(--ifm-color-primary);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--oc-border);
+}
+
+.footer__title {
+  font-weight: 800;
+}
+
+/* ---------- Small polish ---------- */
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+}
+
+.pagination-nav__link {
+  border-radius: 14px;
+  border: 1px solid var(--oc-border);
 }

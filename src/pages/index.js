@@ -1,31 +1,29 @@
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-
+import styles from './index.module.css';
 
 function HomepageHeader() {
   return (
     <header className={styles.futuristicHeader}>
-      <div className={styles.backgroundAnimation}>
-        
-      </div>
+      {/* Background animation layer */}
+      <div className={styles.backgroundAnimation} />
+
       <div className={styles.headerContent}>
         <img
-          src="/opencms-api-specs/img/OpenCMS.png"
-          alt="Open CMS Logo"
-          className={styles.logo}
+          src={useBaseUrl('/img/OpenConnect.png')}
+          alt="OpenConnect"
+          className={styles.headerImage}
         />
 
         <Heading as="h1" className={styles.mainTitle}>
-          Open CMS
+          OpenConnect
         </Heading>
 
         <p className={styles.subtitle}>
-          Enterprise Card Management System
+          Enterprise Integration Middleware for Real-Time Payments
         </p>
 
         <div className={styles.ctaContainer}>
@@ -33,7 +31,10 @@ function HomepageHeader() {
             Get Started
           </Link>
 
-          <Link className={styles.ctaButtonSecondary} to="/api-specifications">
+          <Link
+            className={styles.ctaButtonSecondary}
+            to="/api-specifications"
+          >
             API Reference
           </Link>
         </div>
@@ -42,13 +43,13 @@ function HomepageHeader() {
   );
 }
 
-export default function Home() {
+export default function HomePage() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
     <Layout
       title={siteConfig.title}
-      description="Enterprise-grade Card Lifecycle Management Platform"
+      description="Enterprise-grade middleware for P2P, P2M, IBFT, Billing, and Title Fetch integrations"
     >
       <HomepageHeader />
     </Layout>

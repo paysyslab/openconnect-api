@@ -1,10 +1,11 @@
+// @ts-check
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   tutorialSidebar: [
-    'introduction',
-    'developerWorkflow',
-    'dataTypeRef',
-    'response',
+    { type: "doc", id: "introduction" },
+    { type: "doc", id: "developerworkflow" },
+    { type: "doc", id: "dataTypeRef" },
   ],
 };
 
-export default sidebars;
+module.exports = sidebars;

@@ -1,0 +1,2445 @@
+# UPDATED CODE- openconnect-api.yml
+
+openapi: 3.0.3
+info:
+  title: OpenConnect-API
+  version: 1.0.1
+  description: 'Consolidated OpenAPI specification for OpenConnect APIs (merged from uploaded specs: P2P, P2M, Billing, 1LINK IBFT, 1LINK Title Fetch, MPG Incoming Title Fetch).'
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+# Non Financial
+paths:
+  /api/v1/paysyslabs/payments/titlefetch:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "unifiedTitleFetch"
+      summary: "Unified Title Fetch API for retrieving beneficiary account details."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                info:
+                  type: object
+                  properties:
+                    rrn:
+                      type: string
+                      example: "002236987456"
+                    stan:
+                      type: string
+                      example: "987456"
+                    txndate:
+                      type: string
+                      example: "20231015"
+                    txntime:
+                      type: string
+                      example: "182243"
+                senderinfo:
+                  type: object
+                  properties:
+                    fromAccount:
+                      type: string
+                      example: "05421236547552"
+                    fromAccountType:
+                      type: string
+                      example: "00"
+                    fromAccountCurrency:
+                      type: string
+                      example: "586"
+                receiverinfo:
+                  type: object
+                  properties:
+                    bankId:
+                      type: integer
+                      example: 1
+                    toAccount:
+                      type: string
+                      example: "00023137343951"
+                otherinfo:
+                  type: object
+                  properties:
+                    priorityFlag:
+                      type: string
+                      example: "01"
+                    fallbackFlag:
+                      type: string
+                      example: "01"
+                    purposeCode:
+                      type: string
+                      example: "0152"
+                    amount:
+                      type: number
+                      example: 5000
+      responses:
+        '200':
+          description: "Successful Title Fetch"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  accountInfo:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: "Waqas Nizam"
+                      toAccount:
+                        type: string
+                        example: "00653000129536"
+                      destinationPaymentSystem:
+                        type: string
+                        example: "01"
+                      iban:
+                        type: string
+                        example: ""
+                  participantInfo:
+                    type: object
+                    properties:
+                      bankIMD:
+                        type: string
+                        example: "100271"
+                      bankBIC:
+                        type: string
+                        example: "NBPBPKKA"
+
+  /api/v1/paysyslabs/payments/getdefaultaccountbyraastid:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "getDefaultAccountByRAASTID"
+      summary: "Fetch default account by RAAST ID."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                raastId:
+                  type: string
+                  example: "1234567890"
+      responses:
+        '200':
+          description: "Account details retrieved"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    example: "ABC123"
+                  accountType:
+                    type: string
+                    example: "savings"
+
+  /api/v1/paysyslabs/payments/getbillerscategory:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "getBillersCategory"
+      summary: "Fetch available biller categories."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categoryCode:
+                  type: string
+                  example: "BILL001"
+      responses:
+        '200':
+          description: "Biller categories retrieved"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      example: "Utility and Insurance"
+                      # example: "Insurance"
+
+  /api/v1/paysyslabs/payments/getbillerslist:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "getBillersList"
+      summary: "Fetch list of available billers."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categoryCode:
+                  type: string
+                  example: "BILL001"
+      responses:
+        '200':
+          description: "Biller list retrieved"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  billers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        billerId:
+                          type: string
+                          example: "12345"
+                        billerName:
+                          type: string
+                          example: "Electricity Provider"
+
+  /api/v1/paysyslabs/payments/billinquiry:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "billInquiry"
+      summary: "Inquiry on a bill based on given parameters."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                billerId:
+                  type: string
+                  example: "12345"
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+      responses:
+        '200':
+          description: "Bill inquiry completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  amountDue:
+                    type: number
+                    example: 150.75
+                  dueDate:
+                    type: string
+                    example: "2023-11-15"
+
+  /api/v1/paysyslabs/payments/transactioninquiry:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "transactionInquiry"
+      summary: "Inquiry for transaction details based on given parameters."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transactionId:
+                  type: string
+                  example: "TXN123456789"
+      responses:
+        '200':
+          description: "Transaction inquiry successful"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  amount:
+                    type: number
+                    example: 5000
+                  transactionDate:
+                    type: string
+                    example: "2023-10-15"
+
+  /api/v1/paysyslabs/payments/merchantaliasinquiry:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "merchantAliasInquiry"
+      summary: "Inquiry for merchant alias."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantId:
+                  type: string
+                  example: "M123456"
+      responses:
+        '200':
+          description: "Merchant alias inquiry completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alias:
+                    type: string
+                    example: "merchant123"
+                  merchantName:
+                    type: string
+                    example: "Merchant Corp."
+
+  /api/v1/paysyslabs/payments/getbundlescompanies:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "getBundlesCompanies"
+      summary: "Get list of companies offering bundles."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bundleId:
+                  type: string
+                  example: "BUNDLE001"
+      responses:
+        '200':
+          description: "Bundles companies retrieved"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companies:
+                    type: array
+                    items:
+                      type: string
+                      example: "Company A and Company B"
+                      # example: "Company B"
+
+  /api/v1/paysyslabs/payments/gettelcopackages:
+    post:
+      tags:
+        - "Non-Financial APIs"
+      operationId: "getTelcoPackages"
+      summary: "Get list of available telco packages."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                telcoId:
+                  type: string
+                  example: "TELCO001"
+      responses:
+        '200':
+          description: "Telco packages retrieved"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  packages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        packageName:
+                          type: string
+                          example: "Basic Plan"
+                        price:
+                          type: number
+                          example: 50
+                        validity:
+                          type: string
+                          example: "30 days"
+
+# financial
+
+  /api/v1/paysyslabs/payments/transfer1link:
+    post:
+      tags:
+        - "Financial Services"
+      operationId: "transfer1Link"
+      summary: "Transfer funds via 1LINK"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                senderAccount:
+                  type: string
+                  example: "05421236547552"
+                receiverAccount:
+                  type: string
+                  example: "00653000129536"
+                amount:
+                  type: number
+                  example: 5000
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                purposeCode:
+                  type: string
+                  example: "0152"
+                currencyCode:
+                  type: string
+                  example: "586"
+      responses:
+        '200':
+          description: "Transfer via 1LINK completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid transaction request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid account details"
+
+  /api/v1/paysyslabs/payments/transferrast:
+    post:
+      tags:
+        - "Financial Services"
+      operationId: "transferRAAST"
+      summary: "Transfer funds via RAAST"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                senderAccount:
+                  type: string
+                  example: "05421236547552"
+                receiverAccount:
+                  type: string
+                  example: "00023137343951"
+                amount:
+                  type: number
+                  example: 2000
+                txnRef:
+                  type: string
+                  example: "TXN789123"
+                currencyCode:
+                  type: string
+                  example: "586"
+                purposeCode:
+                  type: string
+                  example: "0152"
+      responses:
+        '200':
+          description: "Transfer via RAAST completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN789123"
+        '400':
+          description: "Invalid transaction request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Insufficient funds"
+
+  /api/v1/paysyslabs/payments/billpayment:
+    post:
+      tags:
+        - "Financial Services"
+      operationId: "billPayment"
+      summary: "Process a bill payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+                billerId:
+                  type: string
+                  example: "BILL001"
+                amount:
+                  type: number
+                  example: 1500
+                txnRef:
+                  type: string
+                  example: "TXN102938"
+                paymentMethod:
+                  type: string
+                  example: "Bank Transfer"
+      responses:
+        '200':
+          description: "Bill payment processed successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN102938"
+        '400':
+          description: "Invalid payment request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid biller details"
+
+  /api/v1/paysyslabs/payments/telcobundlepurchase:
+    post:
+      tags:
+        - "Financial Services"
+      operationId: "telcoBundlePurchase"
+      summary: "Purchase a telco bundle"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                telcoId:
+                  type: string
+                  example: "TELCO001"
+                bundleId:
+                  type: string
+                  example: "BUNDLE001"
+                amount:
+                  type: number
+                  example: 50
+                txnRef:
+                  type: string
+                  example: "TXN321654"
+      responses:
+        '200':
+          description: "Telco bundle purchase successful"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN321654"
+        '400':
+          description: "Invalid purchase request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid bundle ID"
+
+
+# RAAST ID MANAGEMENT
+
+  /api/v1/paysyslabs/raast/onestepregistration:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "oneStepRegistration"
+        summary: "One-step registration for RAAST ID"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cnic:
+                    type: string
+                    example: "1234567890123"
+                  fullName:
+                    type: string
+                    example: "John Doe"
+                  dateOfBirth:
+                    type: string
+                    example: "1990-01-01"
+                  mobileNumber:
+                    type: string
+                    example: "3001234567"
+                  email:
+                    type: string
+                    example: "johndoe@example.com"
+                  address:
+                    type: string
+                    example: "123 Main Street, Karachi"
+        responses:
+          '200':
+            description: "RAAST ID one-step registration completed"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    raastId:
+                      type: string
+                      example: "RAASTID123456"
+          '400':
+            description: "Invalid request"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "Invalid data"
+
+  /api/v1/paysyslabs/raast/registercaa:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "registerCAA"
+        summary: "Register CAA for RAAST ID"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cnic:
+                    type: string
+                    example: "1234567890123"
+                  caaNumber:
+                    type: string
+                    example: "CAA123456"
+                  registrationDate:
+                    type: string
+                    example: "2023-10-10"
+        responses:
+          '200':
+            description: "CAA registration successful"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    cAARegistrationStatus:
+                      type: string
+                      example: "Registered"
+          '400':
+            description: "Invalid CAA registration request"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "Invalid CAA details"
+
+  /api/v1/paysyslabs/raast/unlinkaccounttoalias:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "unlinkAccountToAlias"
+        summary: "Unlink an account from an alias"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  raastId:
+                    type: string
+                    example: "RAASTID123456"
+                  alias:
+                    type: string
+                    example: "john_doe_alias"
+        responses:
+          '200':
+            description: "Account successfully unlinked from alias"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    unlinkStatus:
+                      type: string
+                      example: "Unlinked"
+          '400':
+            description: "Invalid unlink request"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "Alias not found"
+
+  /api/v1/paysyslabs/raast/linkaccounttoalias:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "linkAccountToAlias"
+        summary: "Link an account to an alias"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  raastId:
+                    type: string
+                    example: "RAASTID123456"
+                  alias:
+                    type: string
+                    example: "john_doe_alias"
+                  bankAccount:
+                    type: string
+                    example: "05421236547552"
+        responses:
+          '200':
+            description: "Account successfully linked to alias"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    linkStatus:
+                      type: string
+                      example: "Linked"
+          '400':
+            description: "Invalid link request"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "Alias already linked"
+
+  /api/v1/paysyslabs/raast/setdefaultaccount:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "setDefaultAccount"
+        summary: "Set a default account for RAAST ID"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  raastId:
+                    type: string
+                    example: "RAASTID123456"
+                  defaultAccount:
+                    type: string
+                    example: "05421236547552"
+        responses:
+          '200':
+            description: "Default account set successfully"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    defaultAccountStatus:
+                      type: string
+                      example: "Default"
+          '400':
+            description: "Invalid request to set default account"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "Account not found"
+
+  /api/v1/paysyslabs/raast/removeraaastidrelationshipwithcas:
+      post:
+        tags:
+          - "RAAST ID Management"
+        operationId: "removeRAASTIDRelationshipWithCAS"
+        summary: "Remove RAAST ID relationship with CAS"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  raastId:
+                    type: string
+                    example: "RAASTID123456"
+                  casId:
+                    type: string
+                    example: "CAS12345"
+        responses:
+          '200':
+            description: "RAAST ID relationship with CAS removed successfully"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0000"
+                    response_desc:
+                      type: string
+                      example: "SUCCESS"
+                    removalStatus:
+                      type: string
+                      example: "Removed"
+          '400':
+            description: "Invalid removal request"
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    response_code:
+                      type: string
+                      example: "0401"
+                    response_desc:
+                      type: string
+                      example: "CAS relationship not found"
+
+# RTGS Transactions - Outward Transactions - Bank to RTGS
+
+  /api/v1/paysyslabs/rtgs/singlecustomercredittransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "singleCustomerCreditTransfer"
+      summary: "Single Customer Credit Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                senderAccount:
+                  type: string
+                  example: "05421236547552"
+                receiverAccount:
+                  type: string
+                  example: "00653000129536"
+                amount:
+                  type: number
+                  example: 5000
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                currencyCode:
+                  type: string
+                  example: "586"
+                purposeCode:
+                  type: string
+                  example: "0152"
+      responses:
+        '200':
+          description: "Single customer credit transfer completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid transaction request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid account details"
+
+  /api/v1/paysyslabs/rtgs/multiplecustomercredittransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "multipleCustomerCreditTransfer"
+      summary: "Multiple Customer Credit Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                senderAccount:
+                  type: string
+                  example: "05421236547552"
+                receiverAccounts:
+                  type: array
+                  items:
+                    type: string
+                    example: "00653000129536"
+                totalAmount:
+                  type: number
+                  example: 15000
+                txnRef:
+                  type: string
+                  example: "TXN789123"
+                currencyCode:
+                  type: string
+                  example: "586"
+                purposeCode:
+                  type: string
+                  example: "0152"
+      responses:
+        '200':
+          description: "Multiple customer credit transfers completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN789123"
+        '400':
+          description: "Invalid transaction request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid account details"
+
+  /api/v1/paysyslabs/rtgs/financialinstitutiontransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "financialInstitutionTransfer"
+      summary: "Financial Institution Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                financialInstitutionCode:
+                  type: string
+                  example: "FIC123"
+                senderAccount:
+                  type: string
+                  example: "05421236547552"
+                receiverInstitutionAccount:
+                  type: string
+                  example: "100111223344"
+                amount:
+                  type: number
+                  example: 20000
+                txnRef:
+                  type: string
+                  example: "TXN345678"
+                currencyCode:
+                  type: string
+                  example: "586"
+                purposeCode:
+                  type: string
+                  example: "0152"
+      responses:
+        '200':
+          description: "Financial institution transfer completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN345678"
+        '400':
+          description: "Invalid transfer request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid account details"
+
+  /api/v1/paysyslabs/rtgs/requestforcancellation:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "requestForCancellation"
+      summary: "Request for Cancellation"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                reason:
+                  type: string
+                  example: "Duplicate Transaction"
+      responses:
+        '200':
+          description: "Request for cancellation completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid cancellation request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/statusrequestmessage:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "statusRequestMessage"
+      summary: "Status Request Message"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                requestDetails:
+                  type: string
+                  example: "Request for transaction status"
+      responses:
+        '200':
+          description: "Status request message sent"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid status request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/copyrequestmessage:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "copyRequestMessage"
+      summary: "Copy Request Message"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                requestDetails:
+                  type: string
+                  example: "Request for copying transaction message"
+      responses:
+        '200':
+          description: "Copy request message completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid copy request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+  
+  /api/v1/paysyslabs/rtgs/changeprioritymessage:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "changePriorityMessage"
+      summary: "Change Priority of Transaction"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                newPriority:
+                  type: string
+                  example: "High"
+      responses:
+        '200':
+          description: "Change priority message completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid priority change request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/accountstatusenquiryandreport:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "accountStatusEnquiryAndReport"
+      summary: "Account Status Enquiry and Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+      responses:
+        '200':
+          description: "Account status enquiry and report completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  accountStatus:
+                    type: string
+                    example: "Active"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid account status enquiry request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Account not found"
+
+  /api/v1/paysyslabs/rtgs/requestforbalanceandtransactionreport:
+    post:
+      tags:
+        - "RTGS Transactions - Outward Transactions"
+      operationId: "requestForBalanceAndTransactionReport"
+      summary: "Request for Balance and Transaction Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+                startDate:
+                  type: string
+                  example: "2023-10-01"
+                endDate:
+                  type: string
+                  example: "2023-10-31"
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+      responses:
+        '200':
+          description: "Request for balance and transaction report completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  balance:
+                    type: number
+                    example: 100000
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        txnId:
+                          type: string
+                          example: "TXN123457"
+                        amount:
+                          type: number
+                          example: 5000
+                        date:
+                          type: string
+                          example: "2023-10-15"
+        '400':
+          description: "Invalid report request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Account not found"
+
+
+
+# RTGS Transactions - Inward Transactions – RTGS to Bank
+
+  /api/v1/paysyslabs/rtgs/transactionstatusresponse:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "transactionStatusResponse"
+      summary: "Transaction Status Response"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                responseCode:
+                  type: string
+                  example: "200"
+                status:
+                  type: string
+                  example: "Completed"
+      responses:
+        '200':
+          description: "Transaction status response received"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  status:
+                    type: string
+                    example: "Completed"
+        '400':
+          description: "Invalid status request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/confirmationofcredit:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "confirmationOfCredit"
+      summary: "Confirmation of Credit"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                amount:
+                  type: number
+                  example: 10000
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+      responses:
+        '200':
+          description: "Confirmation of credit received"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  amount:
+                    type: number
+                    example: 10000
+        '400':
+          description: "Invalid confirmation request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/copymessage/singlecustomercredittransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "copyMessageSingleCustomerCreditTransfer"
+      summary: "Copy Message for Single Customer Credit Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                copyDetails:
+                  type: string
+                  example: "Copy of the transaction details"
+      responses:
+        '200':
+          description: "Copy message for single customer credit transfer completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid copy request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/copymessage/multiplecustomercredittransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "copyMessageMultipleCustomerCreditTransfer"
+      summary: "Copy Message for Multiple Customer Credit Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN789123"
+                copyDetails:
+                  type: string
+                  example: "Copy of multiple transactions details"
+      responses:
+        '200':
+          description: "Copy message for multiple customer credit transfer completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN789123"
+        '400':
+          description: "Invalid copy request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/copymessage/financialinstitutiontransfer:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "copyMessageFinancialInstitutionTransfer"
+      summary: "Copy Message for Financial Institution Transfer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN345678"
+                copyDetails:
+                  type: string
+                  example: "Copy of the financial institution transfer details"
+      responses:
+        '200':
+          description: "Copy message for financial institution transfer completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN345678"
+        '400':
+          description: "Invalid copy request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/rtgs/responseonpreviouslyissuedtransfers:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "responseOnPreviouslyIssuedTransfers"
+      summary: "Response for Previously Issued Transfers"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                responseDetails:
+                  type: string
+                  example: "Response details for the previously issued transfer"
+      responses:
+        '200':
+          description: "Response for previously issued transfers completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid response request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+  
+  /api/v2/paysyslabs/rtgs/accountstatusenquiryandreport:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "accountStatusEnquiryAndReport"
+      summary: "Account Status Enquiry and Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+      responses:
+        '200':
+          description: "Account status enquiry and report completed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  accountStatus:
+                    type: string
+                    example: "Active"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+        '400':
+          description: "Invalid account status enquiry request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Account not found"
+
+  /api/v1/paysyslabs/rtgs/responseforbalanceandtransactionreport:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "responseForBalanceAndTransactionReport"
+      summary: "Response for Balance and Transaction Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+                startDate:
+                  type: string
+                  example: "2023-10-01"
+                endDate:
+                  type: string
+                  example: "2023-10-31"
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+      responses:
+        '200':
+          description: "Response for balance and transaction report received"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  balance:
+                    type: number
+                    example: 100000
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        txnId:
+                          type: string
+                          example: "TXN123457"
+                        amount:
+                          type: number
+                          example: 5000
+                        date:
+                          type: string
+                          example: "2023-10-15"
+        '400':
+          description: "Invalid report request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Account not found"
+
+  /api/v1/paysyslabs/rtgs/finalreport:
+    post:
+      tags:
+        - "RTGS Transactions - Inward Transactions"
+      operationId: "finalReport"
+      summary: "Final Report"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                reportType:
+                  type: string
+                  example: "Full Report"
+                details:
+                  type: string
+                  example: "Details of the final transaction report"
+      responses:
+        '200':
+          description: "Final report received"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  report:
+                    type: string
+                    example: "Transaction report generated successfully"
+        '400':
+          description: "Invalid final report request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+
+# BANK CONTROLLER
+
+
+  /api/v1/paysyslabs/bankcontroller/titlefetch:
+    post:
+      tags:
+        - "Bank Controller"
+      operationId: "titleFetch"
+      summary: "Fetch Title for a Transaction"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                customerName:
+                  type: string
+                  example: "John Doe"
+      responses:
+        '200':
+          description: "Title Fetch request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  title:
+                    type: string
+                    example: "Mr."
+        '400':
+          description: "Invalid title fetch request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Transaction not found"
+
+  /api/v1/paysyslabs/bankcontroller/creditpostingrequest:
+    post:
+      tags:
+        - "Bank Controller"
+      operationId: "creditPostingRequest"
+      summary: "Request for Credit Posting"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                amount:
+                  type: number
+                  example: 1000
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+      responses:
+        '200':
+          description: "Credit posting request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  amount:
+                    type: number
+                    example: 1000
+        '400':
+          description: "Invalid credit posting request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid amount or account"
+
+  /api/v1/paysyslabs/bankcontroller/creditadvise:
+    post:
+      tags:
+        - "Bank Controller"
+      operationId: "creditAdvise"
+      summary: "Request for Credit Advise"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                amount:
+                  type: number
+                  example: 5000
+                beneficiaryAccount:
+                  type: string
+                  example: "05421236547892"
+      responses:
+        '200':
+          description: "Credit advise request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  advisedAmount:
+                    type: number
+                    example: 5000
+        '400':
+          description: "Invalid credit advise request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Beneficiary account not found"
+
+  /api/v1/paysyslabs/bankcontroller/creditinquiry:
+    post:
+      tags:
+        - "Bank Controller"
+      operationId: "creditInquiry"
+      summary: "Credit Inquiry for Transaction"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                accountNumber:
+                  type: string
+                  example: "05421236547552"
+      responses:
+        '200':
+          description: "Credit inquiry processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  creditBalance:
+                    type: number
+                    example: 5000
+        '400':
+          description: "Invalid credit inquiry request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Account not found"
+
+
+
+# Channel initiator RAAST - P2M
+
+
+  /api/v1/paysyslabs/channelinitiator/rtprequest:
+    post:
+      tags:
+        - "Channel Initiator"
+      operationId: "rtpRequest"
+      summary: "Request for Real-Time Payment (RTP)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                payerAccount:
+                  type: string
+                  example: "05421236547552"
+                amount:
+                  type: number
+                  example: 1000
+                merchantAccount:
+                  type: string
+                  example: "05624315678431"
+                paymentPurpose:
+                  type: string
+                  example: "Payment for services"
+      responses:
+        '200':
+          description: "RTP request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  status:
+                    type: string
+                    example: "Completed"
+        '400':
+          description: "Invalid RTP request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid request parameters"
+
+  /api/v1/paysyslabs/channelinitiator/channelnotifyrequestforreturnpayment:
+    post:
+      tags:
+        - "Channel Initiator"
+      operationId: "channelNotifyRequestForReturnPayment"
+      summary: "Channel Notify Request for Return Payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                returnReason:
+                  type: string
+                  example: "Insufficient funds"
+                originalTxnRef:
+                  type: string
+                  example: "TXN123455"
+                payerAccount:
+                  type: string
+                  example: "05421236547552"
+                merchantAccount:
+                  type: string
+                  example: "05624315678431"
+      responses:
+        '200':
+          description: "Channel notify request for return payment processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  status:
+                    type: string
+                    example: "Completed"
+        '400':
+          description: "Invalid notify return payment request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid request parameters"
+
+
+# RAAST - Person to Merchant
+
+
+  /api/v1/paysyslabs/raast/customerinitiatedpayments:
+    post:
+      tags:
+        - "RAAST – Person to Merchant"
+      operationId: "customerInitiatedPayments"
+      summary: "Initiate Customer Payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123456"
+                payerAccount:
+                  type: string
+                  example: "05421236547552"
+                amount:
+                  type: number
+                  example: 1000
+                merchantAccount:
+                  type: string
+                  example: "05624315678431"
+                paymentPurpose:
+                  type: string
+                  example: "Payment for goods"
+      responses:
+        '200':
+          description: "Customer initiated payment request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123456"
+                  status:
+                    type: string
+                    example: "Completed"
+        '400':
+          description: "Invalid customer initiated payment request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid request parameters"
+
+  /api/v1/paysyslabs/raast/merchantinitiatedpayments:
+    post:
+      tags:
+        - "RAAST – Person to Merchant"
+      operationId: "merchantInitiatedPayments"
+      summary: "Initiate Merchant Payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                txnRef:
+                  type: string
+                  example: "TXN123457"
+                merchantAccount:
+                  type: string
+                  example: "05624315678431"
+                amount:
+                  type: number
+                  example: 5000
+                payerAccount:
+                  type: string
+                  example: "05421236547552"
+                paymentPurpose:
+                  type: string
+                  example: "Refund for services"
+      responses:
+        '200':
+          description: "Merchant initiated payment request processed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0000"
+                  response_desc:
+                    type: string
+                    example: "SUCCESS"
+                  txnRef:
+                    type: string
+                    example: "TXN123457"
+                  status:
+                    type: string
+                    example: "Completed"
+        '400':
+          description: "Invalid merchant initiated payment request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_code:
+                    type: string
+                    example: "0401"
+                  response_desc:
+                    type: string
+                    example: "Invalid request parameters"
+
