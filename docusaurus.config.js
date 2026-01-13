@@ -36,7 +36,7 @@ const config = {
 
           // Docs as homepage
           routeBasePath: '/', // Keep the homepage as the docs section
-          editUrl: 'https://github.com/paysyslab/openconnect-api/tree/main/',
+          editUrl: 'https://github.com/paysyslab/openconnect-api/tree/main/'
         },
         blog: false,
         theme: {
