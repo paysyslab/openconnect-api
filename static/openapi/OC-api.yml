@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: OpenConnect - API
-  version: "1.0.0"
+  version: "1.0.1"
   description: >
     OpenAPI specification for PaysysLabs OpenConnect.
   contact:
