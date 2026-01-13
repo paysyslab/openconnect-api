@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkopenconnect_api=globalThis.webpackChunkopenconnect_api||[]).push([[222],{7515(e){e.exports=JSON.parse('{"name":"@scalar/docusaurus","id":"openconnect"}')}}]);

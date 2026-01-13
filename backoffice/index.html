@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-backoffice" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Back Office | OpenConnect</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://paysyslab.github.io/openconnect-api/img/OpenConnect.png"><meta data-rh="true" name="twitter:image" content="https://paysyslab.github.io/openconnect-api/img/OpenConnect.png"><meta data-rh="true" property="og:url" content="https://paysyslab.github.io/openconnect-api/backoffice"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Back Office | OpenConnect"><meta data-rh="true" name="description" content="The OpenConnect Back Office is the centralized operations, monitoring, governance, and control layer of the OpenConnect platform. It enables banks, financial institutions, and regulated entities to operate, supervise, and govern all payment integrations and transactions processed through OpenConnect."><meta data-rh="true" property="og:description" content="The OpenConnect Back Office is the centralized operations, monitoring, governance, and control layer of the OpenConnect platform. It enables banks, financial institutions, and regulated entities to operate, supervise, and govern all payment integrations and transactions processed through OpenConnect."><link data-rh="true" rel="icon" href="/openconnect-api/img/favicon.png"><link data-rh="true" rel="canonical" href="https://paysyslab.github.io/openconnect-api/backoffice"><link data-rh="true" rel="alternate" href="https://paysyslab.github.io/openconnect-api/backoffice" hreflang="en"><link data-rh="true" rel="alternate" href="https://paysyslab.github.io/openconnect-api/backoffice" hreflang="x-default"><link rel="stylesheet" href="/openconnect-api/assets/css/styles.7b8adcf2.css">
+<script src="/openconnect-api/assets/js/runtime~main.d5d2d9f4.js" defer="defer"></script>
+<script src="/openconnect-api/assets/js/main.f1c40058.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script>
+<script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script><div id="__docusaurus"><link rel="preload" as="image" href="/openconnect-api/img/PaysysLogo.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/openconnect-api/"><div class="navbar__logo"><img src="/openconnect-api/img/PaysysLogo.png" alt="Paysys Labs Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/openconnect-api/img/PaysysLogo.png" alt="Paysys Labs Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/openconnect-api/">Overview</a><a class="navbar__item navbar__link" href="/openconnect-api/api-specifications">API Specification</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/openconnect-api/backoffice">Back Office</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/paysyslab/openconnect-api" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><main class="docMainContainer_TBSr docMainContainerEnhanced_lQrH"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>OpenConnect Back Office</h1></header>
+<p>The <strong>OpenConnect Back Office</strong> is the centralized <strong>operations, monitoring, governance, and control layer</strong> of the OpenConnect platform. It enables banks, financial institutions, and regulated entities to <strong>operate, supervise, and govern</strong> all payment integrations and transactions processed through OpenConnect.</p>
+<p>The Back Office is designed to support <strong>high-availability, real-time payment environments</strong>, while ensuring <strong>regulatory compliance, operational transparency, and system resilience</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="purpose--objectives">Purpose &amp; Objectives<a href="#purpose--objectives" class="hash-link" aria-label="Direct link to Purpose &amp; Objectives" title="Direct link to Purpose &amp; Objectives" translate="no">​</a></h3>
+<p>The primary objectives of the OpenConnect Back Office are to:</p>
+<ul>
+<li class="">Provide <strong>end-to-end visibility</strong> of all transactions across payment rails</li>
+<li class="">Enable <strong>secure operational control</strong> across multiple channels and schemes</li>
+<li class="">Enforce <strong>governance, auditability, and compliance</strong> with regulatory standards</li>
+<li class="">Reduce operational risk through real-time monitoring and intelligent alerts</li>
+<li class="">Support rapid issue detection, root-cause analysis, and resolution</li>
+<li class="">Enable <strong>zero-transaction-loss</strong> guarantees through intelligent queuing</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features-at-a-glance">Key Features at a Glance<a href="#key-features-at-a-glance" class="hash-link" aria-label="Direct link to Key Features at a Glance" title="Direct link to Key Features at a Glance" translate="no">​</a></h3>
+<table><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody><tr><td><strong>Real-time Monitoring</strong></td><td>Track transactions across RAAST, 1LINK, and billing channels</td></tr><tr><td><strong>Role-Based Access Control</strong></td><td>Granular RBAC with Maker–Checker governance</td></tr><tr><td><strong>Transaction Tracing</strong></td><td>End-to-end lifecycle visibility from channel to settlement</td></tr><tr><td><strong>Store-and-Forward (SAF)</strong></td><td>Guaranteed delivery with automatic retry mechanisms</td></tr><tr><td><strong>Dynamic Configuration</strong></td><td>Manage channels, schemes, and limits in real-time</td></tr><tr><td><strong>Compliance &amp; Audit</strong></td><td>Full audit trails and regulatory reporting capabilities</td></tr><tr><td><strong>Security</strong></td><td>PKI, certificate management, and mutual TLS enforcement</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="intended-users">Intended Users<a href="#intended-users" class="hash-link" aria-label="Direct link to Intended Users" title="Direct link to Intended Users" translate="no">​</a></h2>
+<p>The Back Office serves multiple functional teams within financial institutions:</p>
+<table><thead><tr><th>User Role</th><th>Responsibilities</th></tr></thead><tbody><tr><td><strong>Operations Teams</strong></td><td>Daily transaction monitoring, issue handling, SAF queue management</td></tr><tr><td><strong>Compliance &amp; Audit Teams</strong></td><td>Regulatory reporting, audit reviews, SBP compliance verification</td></tr><tr><td><strong>System Administrators</strong></td><td>Platform configuration, access control, user management, channel enablement</td></tr><tr><td><strong>Customer Support Teams</strong></td><td>Dispute handling, transaction inquiry resolution, customer support</td></tr><tr><td><strong>Product &amp; Integration Teams</strong></td><td>Channel and scheme enablement, testing, pilot programs</td></tr><tr><td><strong>Risk &amp; Fraud Teams</strong></td><td>Anomaly detection, fraud monitoring, limit enforcement</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="functional-areas">Functional Areas<a href="#functional-areas" class="hash-link" aria-label="Direct link to Functional Areas" title="Direct link to Functional Areas" translate="no">​</a></h2>
+<p>The OpenConnect Back Office is organized into the following functional domains:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="core-modules">Core Modules<a href="#core-modules" class="hash-link" aria-label="Direct link to Core Modules" title="Direct link to Core Modules" translate="no">​</a></h3>
+<ol>
+<li class=""><a href="#1-user--role-management" class="">User &amp; Role Management</a></li>
+<li class=""><a href="#2-transaction-monitoring--search" class="">Transaction Monitoring &amp; Search</a></li>
+<li class=""><a href="#3-transaction-lifecycle-tracking" class="">Transaction Lifecycle Tracking</a></li>
+<li class=""><a href="#4-store-and-forward-saf-operations" class="">Store-and-Forward (SAF) Operations</a></li>
+<li class=""><a href="#5-channel-scheme--limit-management" class="">Channel, Scheme &amp; Limit Management</a></li>
+<li class=""><a href="#6-directory--alias-management" class="">Directory &amp; Alias Management</a></li>
+<li class=""><a href="#7-pki--certificate-management" class="">PKI &amp; Certificate Management</a></li>
+<li class=""><a href="#8-audit-compliance--reporting" class="">Audit, Compliance &amp; Reporting</a></li>
+<li class=""><a href="#9-notifications--operational-alerts" class="">Notifications &amp; Operational Alerts</a></li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-user--role-management">1. User &amp; Role Management<a href="#1-user--role-management" class="hash-link" aria-label="Direct link to 1. User &amp; Role Management" title="Direct link to 1. User &amp; Role Management" translate="no">​</a></h2>
+<p>The Back Office enforces <strong>Role-Based Access Control (RBAC)</strong> to ensure that users only have access to features relevant to their responsibilities and compliance requirements.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-capabilities">Key Capabilities<a href="#key-capabilities" class="hash-link" aria-label="Direct link to Key Capabilities" title="Direct link to Key Capabilities" translate="no">​</a></h3>
+<ul>
+<li class="">
+<p><strong>User Management</strong></p>
+<ul>
+<li class="">Creation, modification, and deactivation of platform users</li>
+<li class="">User profile management and credential handling</li>
+<li class="">Session management and timeout enforcement</li>
+<li class="">Multi-factor authentication (MFA) support</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Role &amp; Permission Management</strong></p>
+<ul>
+<li class="">Predefined roles aligned to job functions</li>
+<li class="">Custom role creation for specialized requirements</li>
+<li class="">Feature-level and module-level access control</li>
+<li class="">Permission inheritance and role hierarchy</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Access Control</strong></p>
+<ul>
+<li class="">Segregation of duties (SoD) for sensitive operations</li>
+<li class="">Department-level access restrictions</li>
+<li class="">Channel-specific permissions</li>
+<li class="">Scheme-specific access controls</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="makerchecker-dual-control-governance">Maker–Checker (Dual Control) Governance<a href="#makerchecker-dual-control-governance" class="hash-link" aria-label="Direct link to Maker–Checker (Dual Control) Governance" title="Direct link to Maker–Checker (Dual Control) Governance" translate="no">​</a></h3>
+<p>For critical operations, the system supports <strong>Maker–Checker (dual control)</strong> workflows to prevent unauthorized changes:</p>
+<table><thead><tr><th>Stage</th><th>Description</th></tr></thead><tbody><tr><td><strong>Request (Maker)</strong></td><td>A user initiates a sensitive action</td></tr><tr><td><strong>Review</strong></td><td>The system routes the action to an authorized reviewer</td></tr><tr><td><strong>Approval/Rejection (Checker)</strong></td><td>Reviewer approves or rejects with justification</td></tr><tr><td><strong>Audit Log</strong></td><td>All actions and decisions are recorded for compliance</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="controlled-operations">Controlled Operations<a href="#controlled-operations" class="hash-link" aria-label="Direct link to Controlled Operations" title="Direct link to Controlled Operations" translate="no">​</a></h3>
+<p>The following operations require Maker–Checker approval:</p>
+<ul>
+<li class="">Channel enablement / disablement</li>
+<li class="">Scheme activation / deactivation</li>
+<li class="">Transaction amount limit changes</li>
+<li class="">Frequency limit modifications</li>
+<li class="">Certificate updates and key rotations</li>
+<li class="">Manual transaction retries and reversals</li>
+<li class="">Configuration changes affecting live traffic</li>
+<li class="">User role assignments and privilege escalations</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-transaction-monitoring--search">2. Transaction Monitoring &amp; Search<a href="#2-transaction-monitoring--search" class="hash-link" aria-label="Direct link to 2. Transaction Monitoring &amp; Search" title="Direct link to 2. Transaction Monitoring &amp; Search" translate="no">​</a></h2>
+<p>The Back Office provides <strong>real-time and historical monitoring</strong> of all transactions processed by OpenConnect across all payment rails and channels.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="search-capabilities">Search Capabilities<a href="#search-capabilities" class="hash-link" aria-label="Direct link to Search Capabilities" title="Direct link to Search Capabilities" translate="no">​</a></h3>
+<p>Transactions can be searched and filtered using one or more of the following parameters:</p>
+<p><strong>Transaction Identifiers</strong></p>
+<ul>
+<li class="">RRN (Retrieval Reference Number) – 12-digit unique identifier</li>
+<li class="">STAN (System Trace Audit Number) – 6-digit audit trail number</li>
+<li class="">Correlation ID – GUID for end-to-end tracing</li>
+<li class="">Message ID – Scheme message identifier</li>
+</ul>
+<p><strong>Participant Information</strong></p>
+<ul>
+<li class="">Sender participant code / bank ID</li>
+<li class="">Receiver participant code / bank ID</li>
+<li class="">Merchant identifier (MID)</li>
+<li class="">Biller ID</li>
+</ul>
+<p><strong>Transaction Classification</strong></p>
+<ul>
+<li class="">Channel (API, Portal, Mobile, ATM, IVR, etc.)</li>
+<li class="">Scheme / Rail (RAAST, 1LINK, RTGS, Billing)</li>
+<li class="">Transaction type (P2P, P2M, Bill Payment, etc.)</li>
+<li class="">Transaction status (Success, Pending, Failed, Reversed)</li>
+</ul>
+<p><strong>Time-Based Filters</strong></p>
+<ul>
+<li class="">Transaction date range</li>
+<li class="">Hour / minute granularity</li>
+<li class="">Timezone support</li>
+</ul>
+<p><strong>Amount Filters</strong></p>
+<ul>
+<li class="">Minimum and maximum amount</li>
+<li class="">Currency code</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="monitoring-dashboards">Monitoring Dashboards<a href="#monitoring-dashboards" class="hash-link" aria-label="Direct link to Monitoring Dashboards" title="Direct link to Monitoring Dashboards" translate="no">​</a></h3>
+<p>Operational dashboards provide real-time and historical insights:</p>
+<p><strong>Performance Metrics</strong></p>
+<ul>
+<li class="">Success vs. failure transaction ratios</li>
+<li class="">Average response times by scheme</li>
+<li class="">Peak transaction volumes and trends</li>
+<li class="">Channel-wise transaction distribution</li>
+</ul>
+<p><strong>Operational Health</strong></p>
+<ul>
+<li class="">Pending and delayed transactions</li>
+<li class="">SAF queue depth and health</li>
+<li class="">Scheme availability and uptime</li>
+<li class="">Participant outage alerts</li>
+</ul>
+<p><strong>Anomaly Detection</strong></p>
+<ul>
+<li class="">Unusual transaction patterns</li>
+<li class="">Failed retry rates</li>
+<li class="">Timeout incidents</li>
+<li class="">Duplicate transaction attempts</li>
+</ul>
+<p>These dashboards help operations teams identify bottlenecks, anomalies, and performance degradation proactively.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-transaction-lifecycle-tracking">3. Transaction Lifecycle Tracking<a href="#3-transaction-lifecycle-tracking" class="hash-link" aria-label="Direct link to 3. Transaction Lifecycle Tracking" title="Direct link to 3. Transaction Lifecycle Tracking" translate="no">​</a></h2>
+<p>Each transaction in OpenConnect can be traced <strong>end-to-end</strong> across all processing layers, providing complete visibility from initiation to settlement.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="lifecycle-stages">Lifecycle Stages<a href="#lifecycle-stages" class="hash-link" aria-label="Direct link to Lifecycle Stages" title="Direct link to Lifecycle Stages" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token plain">┌─────────────────────────────────────────────────────────────────┐</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 1. Channel Request Ingestion                                    │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ API/Portal/Mobile request received and logged             │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 2. Validation &amp; Enrichment                                      │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ Schema validation, field mapping, participant lookup      │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 3. Routing &amp; Processing                                         │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ Intelligent routing to RAAST, 1LINK, or Billing scheme    │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 4. Scheme Response Handling                                     │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ Scheme acknowledgment, pending/success/failure response   │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 5. Participant Processing                                       │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ Bank/Participant controller debit, credit, reversal       │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">├─────────────────────────────────────────────────────────────────┤</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│ 6. Final Settlement &amp; Acknowledgment                            │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">│    └─ Channel acknowledgment and transaction closure            │</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">└─────────────────────────────────────────────────────────────────┘</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="benefits">Benefits<a href="#benefits" class="hash-link" aria-label="Direct link to Benefits" title="Direct link to Benefits" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Faster Root-Cause Analysis</strong> – Pinpoint where transactions fail</li>
+<li class=""><strong>Reduced MTTR</strong> – Mean Time To Resolution improves with detailed logs</li>
+<li class=""><strong>Improved Reconciliation</strong> – Bank and scheme reconciliation becomes automated</li>
+<li class=""><strong>Strong Audit Trail</strong> – Every stage is logged for regulatory compliance</li>
+<li class=""><strong>Customer Service</strong> – Quick resolution of customer inquiries</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tracked-information">Tracked Information<a href="#tracked-information" class="hash-link" aria-label="Direct link to Tracked Information" title="Direct link to Tracked Information" translate="no">​</a></h3>
+<p>For each lifecycle stage, the Back Office captures:</p>
+<ul>
+<li class="">Timestamp (with millisecond precision)</li>
+<li class="">Processing status and state transitions</li>
+<li class="">Request and response payloads</li>
+<li class="">System resource utilization</li>
+<li class="">Participant responses and acknowledgments</li>
+<li class="">Retry counts and SAF queue status</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-store-and-forward-saf-operations">4. Store-and-Forward (SAF) Operations<a href="#4-store-and-forward-saf-operations" class="hash-link" aria-label="Direct link to 4. Store-and-Forward (SAF) Operations" title="Direct link to 4. Store-and-Forward (SAF) Operations" translate="no">​</a></h2>
+<p>OpenConnect includes a robust <strong>Store-and-Forward (SAF)</strong> mechanism to guarantee transaction delivery and zero transaction loss during failures or outages.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="saf-scenarios">SAF Scenarios<a href="#saf-scenarios" class="hash-link" aria-label="Direct link to SAF Scenarios" title="Direct link to SAF Scenarios" translate="no">​</a></h3>
+<p>The SAF mechanism activates automatically in the following scenarios:</p>
+<table><thead><tr><th>Scenario</th><th>Trigger</th><th>Recovery</th></tr></thead><tbody><tr><td><strong>Scheme Unavailability</strong></td><td>Scheme connectivity loss</td><td>Automatic retry when online</td></tr><tr><td><strong>Participant Downtime</strong></td><td>Bank/participant controller unreachable</td><td>Queued until availability</td></tr><tr><td><strong>Network Failures</strong></td><td>Temporary network disruption</td><td>Exponential backoff retry</td></tr><tr><td><strong>System Throttling</strong></td><td>Rate limit or resource constraint</td><td>Priority-based retry queue</td></tr><tr><td><strong>TLS/Authentication Failures</strong></td><td>Certificate or credential issues</td><td>Manual intervention required</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="saf-features--capabilities">SAF Features &amp; Capabilities<a href="#saf-features--capabilities" class="hash-link" aria-label="Direct link to SAF Features &amp; Capabilities" title="Direct link to SAF Features &amp; Capabilities" translate="no">​</a></h3>
+<p><strong>Queue Management</strong></p>
+<ul>
+<li class="">Automatic transaction queuing during failures</li>
+<li class="">Priority-based queue (critical transactions prioritized)</li>
+<li class="">FIFO processing with configurable retry intervals</li>
+<li class="">Queue depth and health monitoring</li>
+</ul>
+<p><strong>Monitoring &amp; Visibility</strong></p>
+<ul>
+<li class="">Real-time SAF queue status dashboard</li>
+<li class="">Queue depth trends and historical analysis</li>
+<li class="">Transaction-level queue status tracking</li>
+<li class="">Alert thresholds for queue backlog</li>
+</ul>
+<p><strong>Retry &amp; Recovery</strong></p>
+<ul>
+<li class="">Automatic retry with exponential backoff</li>
+<li class="">Manual retry and replay options for operators</li>
+<li class="">Controlled retry intervals (e.g., 5s, 30s, 5m, 1h)</li>
+<li class="">Dead-letter queue for permanently failed transactions</li>
+</ul>
+<p><strong>Operational Controls</strong></p>
+<ul>
+<li class="">Pause/Resume SAF processing</li>
+<li class="">Force-process specific transactions</li>
+<li class="">Cancel pending transactions with justification</li>
+<li class="">Emergency drain procedures</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="saf-benefits">SAF Benefits<a href="#saf-benefits" class="hash-link" aria-label="Direct link to SAF Benefits" title="Direct link to SAF Benefits" translate="no">​</a></h3>
+<p>✓ <strong>Zero Transaction Loss</strong> – Guaranteed delivery even during outages<br>
+<!-- -->✓ <strong>Improved Resilience</strong> – System continues operation during scheme downtime<br>
+<!-- -->✓ <strong>Reduced Reconciliation Effort</strong> – Automatic retry eliminates manual resubmission<br>
+<!-- -->✓ <strong>Operational Confidence</strong> – Operators have full control and visibility</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-channel-scheme--limit-management">5. Channel, Scheme &amp; Limit Management<a href="#5-channel-scheme--limit-management" class="hash-link" aria-label="Direct link to 5. Channel, Scheme &amp; Limit Management" title="Direct link to 5. Channel, Scheme &amp; Limit Management" translate="no">​</a></h2>
+<p>Administrators can manage platform behavior dynamically through the Back Office without requiring application restarts.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="channel-management">Channel Management<a href="#channel-management" class="hash-link" aria-label="Direct link to Channel Management" title="Direct link to Channel Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Enable or disable channels in real-time (API, Portal, Mobile, ATM, IVR, etc.)</li>
+<li class="">Control channel availability per payment scheme</li>
+<li class="">Temporarily restrict channels during incidents or maintenance</li>
+<li class="">Channel-specific rate limiting and throttling</li>
+</ul>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li class="">Disable a channel for scheduled maintenance</li>
+<li class="">Restrict a channel during an ongoing incident</li>
+<li class="">Pilot new channels for selected user segments</li>
+<li class="">Emergency channel cutoff during security events</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scheme-management">Scheme Management<a href="#scheme-management" class="hash-link" aria-label="Direct link to Scheme Management" title="Direct link to Scheme Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Enable or disable payment schemes (RAAST, 1LINK, RTGS, Billing)</li>
+<li class="">Define scheme-specific routing preferences</li>
+<li class="">Configure scheme-specific timeout values</li>
+<li class="">Manage scheme connectivity and TLS settings</li>
+</ul>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li class="">Disable a scheme during planned maintenance</li>
+<li class="">Switch between primary and backup scheme routing</li>
+<li class="">Adjust retry strategies per scheme</li>
+<li class="">Test scheme failover mechanisms</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="limit-management">Limit Management<a href="#limit-management" class="hash-link" aria-label="Direct link to Limit Management" title="Direct link to Limit Management" translate="no">​</a></h3>
+<p><strong>Transaction Limits</strong></p>
+<ul>
+<li class="">Per-transaction amount limits (min/max)</li>
+<li class="">Daily cumulative limits per customer</li>
+<li class="">Monthly cumulative limits per customer</li>
+<li class="">Scheme-specific amount thresholds</li>
+</ul>
+<p><strong>Frequency Limits</strong></p>
+<ul>
+<li class="">Transactions per minute / hour / day</li>
+<li class="">Concurrent transaction limits</li>
+<li class="">Channel-specific rate limiting</li>
+<li class="">Customer-specific transaction frequency caps</li>
+</ul>
+<p><strong>Applied Scopes</strong></p>
+<ul>
+<li class="">Global platform limits</li>
+<li class="">Customer-level limits</li>
+<li class="">Channel-level limits</li>
+<li class="">Scheme-level limits</li>
+</ul>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li class="">Apply stricter limits during peak hours</li>
+<li class="">Enforce regulatory transaction limits</li>
+<li class="">Implement fraud prevention rules</li>
+<li class="">Test limit enforcement during dry runs</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-directory--alias-management">6. Directory &amp; Alias Management<a href="#6-directory--alias-management" class="hash-link" aria-label="Direct link to 6. Directory &amp; Alias Management" title="Direct link to 6. Directory &amp; Alias Management" translate="no">​</a></h2>
+<p>The Back Office provides comprehensive visibility and control over <strong>directory services and alias resolution</strong> flows critical for accurate payment routing.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="raast-alias-resolution">RAAST Alias Resolution<a href="#raast-alias-resolution" class="hash-link" aria-label="Direct link to RAAST Alias Resolution" title="Direct link to RAAST Alias Resolution" translate="no">​</a></h3>
+<p><strong>Supported Alias Types</strong></p>
+<ul>
+<li class="">CNIC (Computerized National Identity Card) – 13 digits</li>
+<li class="">Mobile Number – 11 digits (e.g., +923xxxxxxxxx)</li>
+<li class="">Email Address – Standard email format</li>
+<li class="">Custom Alias (TXT) – 3–35 characters</li>
+</ul>
+<p><strong>Alias Lifecycle Management</strong></p>
+<ul>
+<li class="">Active aliases – Currently usable for transactions</li>
+<li class="">Suspended aliases – Temporarily unavailable</li>
+<li class="">Blocked aliases – Permanently deactivated</li>
+<li class="">Pending aliases – Under verification</li>
+</ul>
+<p><strong>Operations</strong></p>
+<ul>
+<li class="">Alias creation and activation</li>
+<li class="">Alias suspension and reactivation</li>
+<li class="">Alias blocking with reason tracking</li>
+<li class="">Alias transfer between accounts</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="directory--cas-integration">Directory &amp; CAS Integration<a href="#directory--cas-integration" class="hash-link" aria-label="Direct link to Directory &amp; CAS Integration" title="Direct link to Directory &amp; CAS Integration" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">CAS (Central Alias Service) interaction logs</li>
+<li class="">Alias resolution request tracking</li>
+<li class="">Directory lookup success/failure metrics</li>
+<li class="">Alias conflict resolution</li>
+</ul>
+<p><strong>Monitoring</strong></p>
+<ul>
+<li class="">Alias resolution performance metrics</li>
+<li class="">Failed directory lookups and root causes</li>
+<li class="">Alias availability by participant</li>
+<li class="">Directory service uptime tracking</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="merchant-alias-management">Merchant Alias Management<a href="#merchant-alias-management" class="hash-link" aria-label="Direct link to Merchant Alias Management" title="Direct link to Merchant Alias Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Merchant ID (MID) management</li>
+<li class="">Merchant alias lookup and validation</li>
+<li class="">Merchant availability status</li>
+<li class="">Merchant-specific routing rules</li>
+</ul>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li class="">Verify merchant onboarding status</li>
+<li class="">Investigate failed merchant lookups</li>
+<li class="">Manage merchant alias disputes</li>
+<li class="">Enable/disable merchant receiving capabilities</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-pki--certificate-management">7. PKI &amp; Certificate Management<a href="#7-pki--certificate-management" class="hash-link" aria-label="Direct link to 7. PKI &amp; Certificate Management" title="Direct link to 7. PKI &amp; Certificate Management" translate="no">​</a></h2>
+<p>OpenConnect enforces strong security through <strong>Public Key Infrastructure (PKI)</strong> and <strong>mutual TLS</strong> authentication for all external communications.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="certificate-inventory--tracking">Certificate Inventory &amp; Tracking<a href="#certificate-inventory--tracking" class="hash-link" aria-label="Direct link to Certificate Inventory &amp; Tracking" title="Direct link to Certificate Inventory &amp; Tracking" translate="no">​</a></h3>
+<p><strong>Managed Certificates</strong></p>
+<ul>
+<li class="">Server certificates for OpenConnect endpoints</li>
+<li class="">Client certificates for participant authentication</li>
+<li class="">Scheme integration certificates (RAAST, 1LINK)</li>
+<li class="">Root CA and intermediate certificates</li>
+</ul>
+<p><strong>Certificate Attributes</strong></p>
+<ul>
+<li class="">Certificate subject and issuer</li>
+<li class="">Valid from / expiry dates</li>
+<li class="">Key type and strength (RSA-2048, RSA-4096, ECDSA-P256)</li>
+<li class="">Serial number and thumbprint</li>
+<li class="">Usage restrictions (TLS Server, TLS Client, Code Signing)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="certificate-lifecycle-management">Certificate Lifecycle Management<a href="#certificate-lifecycle-management" class="hash-link" aria-label="Direct link to Certificate Lifecycle Management" title="Direct link to Certificate Lifecycle Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Certificate issuance and installation</li>
+<li class="">Certificate renewal (before expiry)</li>
+<li class="">Key rotation support</li>
+<li class="">Certificate revocation and replacement</li>
+</ul>
+<p><strong>Alerts &amp; Notifications</strong></p>
+<ul>
+<li class="">Expiry alerts (90 days, 30 days, 7 days before expiry)</li>
+<li class="">Renewal reminders</li>
+<li class="">Revoked certificate alerts</li>
+<li class="">Installation completion notifications</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="trust-store-management">Trust Store Management<a href="#trust-store-management" class="hash-link" aria-label="Direct link to Trust Store Management" title="Direct link to Trust Store Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Root CA certificate inventory</li>
+<li class="">Intermediate CA certificate management</li>
+<li class="">Participant trust store synchronization</li>
+<li class="">CRL (Certificate Revocation List) updates</li>
+</ul>
+<p><strong>Security Controls</strong></p>
+<ul>
+<li class="">Mutual TLS enforcement for all external connections</li>
+<li class="">Certificate pinning for critical integrations</li>
+<li class="">Strong cipher suite enforcement</li>
+<li class="">TLS version enforcement (TLS 1.2+)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="operational-benefits">Operational Benefits<a href="#operational-benefits" class="hash-link" aria-label="Direct link to Operational Benefits" title="Direct link to Operational Benefits" translate="no">​</a></h3>
+<p>✓ <strong>Proactive Renewal</strong> – Prevents service disruptions due to expired certificates<br>
+<!-- -->✓ <strong>Security Compliance</strong> – Maintains strong encryption and authentication<br>
+<!-- -->✓ <strong>Audit Ready</strong> – Certificate changes are fully logged and traceable<br>
+<!-- -->✓ <strong>Zero-Downtime Updates</strong> – Seamless certificate rotation procedures</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-audit-compliance--reporting">8. Audit, Compliance &amp; Reporting<a href="#8-audit-compliance--reporting" class="hash-link" aria-label="Direct link to 8. Audit, Compliance &amp; Reporting" title="Direct link to 8. Audit, Compliance &amp; Reporting" translate="no">​</a></h2>
+<p>The Back Office is designed with <strong>auditability and regulatory compliance</strong> as a core principle, supporting audit requirements from SBP and other regulators.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="comprehensive-audit-logging">Comprehensive Audit Logging<a href="#comprehensive-audit-logging" class="hash-link" aria-label="Direct link to Comprehensive Audit Logging" title="Direct link to Comprehensive Audit Logging" translate="no">​</a></h3>
+<p><strong>What is Logged</strong></p>
+<table><thead><tr><th>Category</th><th>Details Captured</th></tr></thead><tbody><tr><td><strong>Transaction Logs</strong></td><td>Full request/response messages, processing decisions, outcomes</td></tr><tr><td><strong>Configuration Changes</strong></td><td>Who changed what, when, and what was the previous value</td></tr><tr><td><strong>User Activity</strong></td><td>Login/logout, feature access, data downloads, exports</td></tr><tr><td><strong>Maker–Checker</strong></td><td>Approval requests, approver identity, approval time, rejection reasons</td></tr><tr><td><strong>System Events</strong></td><td>Errors, warnings, performance anomalies, schema changes</td></tr><tr><td><strong>Security Events</strong></td><td>Authentication failures, authorization denials, privilege escalations</td></tr></tbody></table>
+<p><strong>Log Retention</strong></p>
+<ul>
+<li class="">Minimum 7 years for transaction logs (regulatory requirement)</li>
+<li class="">Configurable retention policies per log type</li>
+<li class="">Immutable log storage (tamper-proof)</li>
+<li class="">Automated archival to cold storage</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="compliance-readiness">Compliance Readiness<a href="#compliance-readiness" class="hash-link" aria-label="Direct link to Compliance Readiness" title="Direct link to Compliance Readiness" translate="no">​</a></h3>
+<p><strong>SBP Regulatory Requirements</strong></p>
+<ul>
+<li class="">Real-time transaction reporting</li>
+<li class="">Regulatory reporting on payment systems</li>
+<li class="">Fraud and disputed transaction tracking</li>
+<li class="">Consumer complaint handling logs</li>
+</ul>
+<p><strong>Scheme Compliance (RAAST, 1LINK)</strong></p>
+<ul>
+<li class="">Scheme transaction reporting</li>
+<li class="">Performance SLA monitoring</li>
+<li class="">Availability and uptime reporting</li>
+<li class="">Incident and outage documentation</li>
+</ul>
+<p><strong>Internal &amp; External Audit</strong></p>
+<ul>
+<li class="">Audit trail export (CSV, XML, PDF)</li>
+<li class="">Customizable audit reports</li>
+<li class="">Period-based reporting (daily, weekly, monthly, annual)</li>
+<li class="">Evidence collection for audit reviews</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reports-available">Reports Available<a href="#reports-available" class="hash-link" aria-label="Direct link to Reports Available" title="Direct link to Reports Available" translate="no">​</a></h3>
+<p><strong>Operational Reports</strong></p>
+<ul>
+<li class="">Daily transaction summary (counts, amounts, schemes)</li>
+<li class="">Channel performance analysis</li>
+<li class="">Participant-wise transaction breakdown</li>
+<li class="">Failed transaction analysis with root causes</li>
+</ul>
+<p><strong>Compliance Reports</strong></p>
+<ul>
+<li class="">SBP regulatory submissions</li>
+<li class="">Scheme compliance certifications</li>
+<li class="">Audit trail reports (transaction-level)</li>
+<li class="">User access and privilege audit</li>
+</ul>
+<p><strong>Financial Reports</strong></p>
+<ul>
+<li class="">Transaction settlement status</li>
+<li class="">Unreconciled transaction listing</li>
+<li class="">SAF queue pending amount</li>
+<li class="">Revenue/fee analysis by scheme</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-notifications--operational-alerts">9. Notifications &amp; Operational Alerts<a href="#9-notifications--operational-alerts" class="hash-link" aria-label="Direct link to 9. Notifications &amp; Operational Alerts" title="Direct link to 9. Notifications &amp; Operational Alerts" translate="no">​</a></h2>
+<p>The Back Office includes a configurable <strong>alerting framework</strong> to proactively notify operations teams of critical events and potential issues.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alert-types">Alert Types<a href="#alert-types" class="hash-link" aria-label="Direct link to Alert Types" title="Direct link to Alert Types" translate="no">​</a></h3>
+<p><strong>Operational Alerts</strong></p>
+<ul>
+<li class="">Transaction failure spike (sudden increase in failures)</li>
+<li class="">SAF queue backlog exceeds threshold</li>
+<li class="">Scheme or channel outage detected</li>
+<li class="">Participant unavailability</li>
+</ul>
+<p><strong>Performance Alerts</strong></p>
+<ul>
+<li class="">SLA breach notifications (response time exceeds threshold)</li>
+<li class="">API latency degradation</li>
+<li class="">System resource utilization high (CPU, memory, disk)</li>
+<li class="">Database performance degradation</li>
+</ul>
+<p><strong>Security &amp; Compliance Alerts</strong></p>
+<ul>
+<li class="">Certificate expiry approaching (90, 30, 7 days)</li>
+<li class="">Unusual access patterns detected</li>
+<li class="">Privilege escalation attempts</li>
+<li class="">Failed authentication attempts (threshold-based)</li>
+</ul>
+<p><strong>Regulatory Alerts</strong></p>
+<ul>
+<li class="">Compliance report deadline approaching</li>
+<li class="">Audit log volume threshold exceeded</li>
+<li class="">Data retention policy violation</li>
+<li class="">Regulatory change notifications</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alert-delivery-channels">Alert Delivery Channels<a href="#alert-delivery-channels" class="hash-link" aria-label="Direct link to Alert Delivery Channels" title="Direct link to Alert Delivery Channels" translate="no">​</a></h3>
+<table><thead><tr><th>Channel</th><th>Use Case</th><th>Delivery Time</th></tr></thead><tbody><tr><td><strong>Email</strong></td><td>Non-urgent notifications, summaries</td><td>Immediate</td></tr><tr><td><strong>SMS</strong></td><td>Critical alerts, on-call team notification</td><td>Immediate</td></tr><tr><td><strong>In-App Notifications</strong></td><td>Dashboard alerts, user notifications</td><td>Real-time</td></tr><tr><td><strong>Webhook</strong></td><td>Integration with external monitoring systems</td><td>Real-time</td></tr><tr><td><strong>Slack/Teams</strong></td><td>Team collaboration alerts</td><td>Real-time</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alert-management">Alert Management<a href="#alert-management" class="hash-link" aria-label="Direct link to Alert Management" title="Direct link to Alert Management" translate="no">​</a></h3>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li class="">Custom alert thresholds per rule</li>
+<li class="">Alert suppression (silence alerts during maintenance)</li>
+<li class="">Alert escalation (e.g., escalate to manager after 30 min)</li>
+<li class="">Alert acknowledgment and closure tracking</li>
+<li class="">Alert analytics and trending</li>
+</ul>
+<p><strong>Best Practices</strong></p>
+<ul>
+<li class="">Configure alerts based on historical baselines</li>
+<li class="">Avoid alert fatigue through intelligent thresholding</li>
+<li class="">Set up runbooks for common alerts</li>
+<li class="">Regularly review and tune alert rules</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="operational-benefits-1">Operational Benefits<a href="#operational-benefits-1" class="hash-link" aria-label="Direct link to Operational Benefits" title="Direct link to Operational Benefits" translate="no">​</a></h2>
+<p>The OpenConnect Back Office delivers the following operational and business advantages:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="efficiency">Efficiency<a href="#efficiency" class="hash-link" aria-label="Direct link to Efficiency" title="Direct link to Efficiency" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Faster Issue Resolution</strong> – End-to-end tracing reduces MTTR</li>
+<li class=""><strong>Reduced Manual Work</strong> – Automation via SAF and intelligent retry</li>
+<li class=""><strong>Self-Service Capabilities</strong> – Operations teams resolve issues without escalation</li>
+<li class=""><strong>Zero Reconciliation Effort</strong> – Automatic matching and settlement tracking</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reliability">Reliability<a href="#reliability" class="hash-link" aria-label="Direct link to Reliability" title="Direct link to Reliability" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>High Availability</strong> – SAF ensures zero transaction loss</li>
+<li class=""><strong>Graceful Degradation</strong> – System continues operating during scheme downtime</li>
+<li class=""><strong>Fast Failover</strong> – Automatic switching to backup schemes/channels</li>
+<li class=""><strong>Resilient Architecture</strong> – Built-in redundancy and monitoring</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="governance--compliance">Governance &amp; Compliance<a href="#governance--compliance" class="hash-link" aria-label="Direct link to Governance &amp; Compliance" title="Direct link to Governance &amp; Compliance" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Regulatory Confidence</strong> – Full audit trails and compliance reports ready</li>
+<li class=""><strong>Strong Access Control</strong> – Role-based access with Maker–Checker governance</li>
+<li class=""><strong>Segregation of Duties</strong> – Critical operations require dual approval</li>
+<li class=""><strong>Audit Ready</strong> – Comprehensive logging for internal and external audits</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="security">Security<a href="#security" class="hash-link" aria-label="Direct link to Security" title="Direct link to Security" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>PKI &amp; Certificate Management</strong> – Strong encryption and authentication</li>
+<li class=""><strong>Mutual TLS</strong> – Secure participant communication</li>
+<li class=""><strong>Access Logging</strong> – Track who accessed what and when</li>
+<li class=""><strong>Threat Visibility</strong> – Anomaly detection and security alerts</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="initial-setup-checklist">Initial Setup Checklist<a href="#initial-setup-checklist" class="hash-link" aria-label="Direct link to Initial Setup Checklist" title="Direct link to Initial Setup Checklist" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure user roles and RBAC policies</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Set up transaction monitoring dashboards</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure alert thresholds and notification channels</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Verify certificate inventory and renewal schedules</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Create operational runbooks for common issues</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Schedule training for operations teams</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Configure compliance reporting automation</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Establish audit log retention policies</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-configuration-items">Key Configuration Items<a href="#key-configuration-items" class="hash-link" aria-label="Direct link to Key Configuration Items" title="Direct link to Key Configuration Items" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>User Management</strong> – Define roles, permissions, and Maker–Checker rules</li>
+<li class=""><strong>Monitoring</strong> – Create dashboards for transaction health and performance</li>
+<li class=""><strong>Alerting</strong> – Configure alerts based on operational SLAs</li>
+<li class=""><strong>Limits</strong> – Set transaction amount and frequency limits</li>
+<li class=""><strong>Compliance</strong> – Enable regulatory reporting and audit logging</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<p>The <strong>OpenConnect Back Office</strong> acts as the <strong>operational backbone</strong> of the platform, providing banks and financial institutions with:</p>
+<p>✓ <strong>Complete visibility</strong> across all payment transactions and channels<br>
+<!-- -->✓ <strong>Secure governance</strong> through role-based access and dual-control workflows<br>
+<!-- -->✓ <strong>Regulatory compliance</strong> with comprehensive audit trails and reporting<br>
+<!-- -->✓ <strong>Operational resilience</strong> through SAF, intelligent retry, and proactive alerting<br>
+<!-- -->✓ <strong>Enterprise-grade reliability</strong> with zero-transaction-loss guarantees</p>
+<p>By leveraging the OpenConnect Back Office, institutions can <strong>operate confidently</strong>, <strong>scale securely</strong>, and <strong>maintain regulatory compliance</strong> in a modern, real-time payment environment.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/paysyslab/openconnect-api/tree/main/docs/backOffice.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a><ul><li><a href="#purpose--objectives" class="table-of-contents__link toc-highlight">Purpose &amp; Objectives</a></li><li><a href="#key-features-at-a-glance" class="table-of-contents__link toc-highlight">Key Features at a Glance</a></li></ul></li><li><a href="#intended-users" class="table-of-contents__link toc-highlight">Intended Users</a></li><li><a href="#functional-areas" class="table-of-contents__link toc-highlight">Functional Areas</a><ul><li><a href="#core-modules" class="table-of-contents__link toc-highlight">Core Modules</a></li></ul></li><li><a href="#1-user--role-management" class="table-of-contents__link toc-highlight">1. User &amp; Role Management</a><ul><li><a href="#key-capabilities" class="table-of-contents__link toc-highlight">Key Capabilities</a></li><li><a href="#makerchecker-dual-control-governance" class="table-of-contents__link toc-highlight">Maker–Checker (Dual Control) Governance</a></li><li><a href="#controlled-operations" class="table-of-contents__link toc-highlight">Controlled Operations</a></li></ul></li><li><a href="#2-transaction-monitoring--search" class="table-of-contents__link toc-highlight">2. Transaction Monitoring &amp; Search</a><ul><li><a href="#search-capabilities" class="table-of-contents__link toc-highlight">Search Capabilities</a></li><li><a href="#monitoring-dashboards" class="table-of-contents__link toc-highlight">Monitoring Dashboards</a></li></ul></li><li><a href="#3-transaction-lifecycle-tracking" class="table-of-contents__link toc-highlight">3. Transaction Lifecycle Tracking</a><ul><li><a href="#lifecycle-stages" class="table-of-contents__link toc-highlight">Lifecycle Stages</a></li><li><a href="#benefits" class="table-of-contents__link toc-highlight">Benefits</a></li><li><a href="#tracked-information" class="table-of-contents__link toc-highlight">Tracked Information</a></li></ul></li><li><a href="#4-store-and-forward-saf-operations" class="table-of-contents__link toc-highlight">4. Store-and-Forward (SAF) Operations</a><ul><li><a href="#saf-scenarios" class="table-of-contents__link toc-highlight">SAF Scenarios</a></li><li><a href="#saf-features--capabilities" class="table-of-contents__link toc-highlight">SAF Features &amp; Capabilities</a></li><li><a href="#saf-benefits" class="table-of-contents__link toc-highlight">SAF Benefits</a></li></ul></li><li><a href="#5-channel-scheme--limit-management" class="table-of-contents__link toc-highlight">5. Channel, Scheme &amp; Limit Management</a><ul><li><a href="#channel-management" class="table-of-contents__link toc-highlight">Channel Management</a></li><li><a href="#scheme-management" class="table-of-contents__link toc-highlight">Scheme Management</a></li><li><a href="#limit-management" class="table-of-contents__link toc-highlight">Limit Management</a></li></ul></li><li><a href="#6-directory--alias-management" class="table-of-contents__link toc-highlight">6. Directory &amp; Alias Management</a><ul><li><a href="#raast-alias-resolution" class="table-of-contents__link toc-highlight">RAAST Alias Resolution</a></li><li><a href="#directory--cas-integration" class="table-of-contents__link toc-highlight">Directory &amp; CAS Integration</a></li><li><a href="#merchant-alias-management" class="table-of-contents__link toc-highlight">Merchant Alias Management</a></li></ul></li><li><a href="#7-pki--certificate-management" class="table-of-contents__link toc-highlight">7. PKI &amp; Certificate Management</a><ul><li><a href="#certificate-inventory--tracking" class="table-of-contents__link toc-highlight">Certificate Inventory &amp; Tracking</a></li><li><a href="#certificate-lifecycle-management" class="table-of-contents__link toc-highlight">Certificate Lifecycle Management</a></li><li><a href="#trust-store-management" class="table-of-contents__link toc-highlight">Trust Store Management</a></li><li><a href="#operational-benefits" class="table-of-contents__link toc-highlight">Operational Benefits</a></li></ul></li><li><a href="#8-audit-compliance--reporting" class="table-of-contents__link toc-highlight">8. Audit, Compliance &amp; Reporting</a><ul><li><a href="#comprehensive-audit-logging" class="table-of-contents__link toc-highlight">Comprehensive Audit Logging</a></li><li><a href="#compliance-readiness" class="table-of-contents__link toc-highlight">Compliance Readiness</a></li><li><a href="#reports-available" class="table-of-contents__link toc-highlight">Reports Available</a></li></ul></li><li><a href="#9-notifications--operational-alerts" class="table-of-contents__link toc-highlight">9. Notifications &amp; Operational Alerts</a><ul><li><a href="#alert-types" class="table-of-contents__link toc-highlight">Alert Types</a></li><li><a href="#alert-delivery-channels" class="table-of-contents__link toc-highlight">Alert Delivery Channels</a></li><li><a href="#alert-management" class="table-of-contents__link toc-highlight">Alert Management</a></li></ul></li><li><a href="#operational-benefits-1" class="table-of-contents__link toc-highlight">Operational Benefits</a><ul><li><a href="#efficiency" class="table-of-contents__link toc-highlight">Efficiency</a></li><li><a href="#reliability" class="table-of-contents__link toc-highlight">Reliability</a></li><li><a href="#governance--compliance" class="table-of-contents__link toc-highlight">Governance &amp; Compliance</a></li><li><a href="#security" class="table-of-contents__link toc-highlight">Security</a></li></ul></li><li><a href="#getting-started" class="table-of-contents__link toc-highlight">Getting Started</a><ul><li><a href="#initial-setup-checklist" class="table-of-contents__link toc-highlight">Initial Setup Checklist</a></li><li><a href="#key-configuration-items" class="table-of-contents__link toc-highlight">Key Configuration Items</a></li></ul></li><li><a href="#summary" class="table-of-contents__link toc-highlight">Summary</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Documentation</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/openconnect-api/introduction">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/openconnect-api/api-specifications">API Specification</a></li><li class="footer__item"><a class="footer__link-item" href="/openconnect-api/backoffice">Back Office</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">API</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/openconnect-api/api-specifications">API Reference (OpenAPI)</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://paysyslabs.com/privacy" target="_blank" rel="noopener noreferrer" class="footer__link-item">Privacy Policy<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://paysyslabs.com/terms" target="_blank" rel="noopener noreferrer" class="footer__link-item">Terms of Service<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Paysys Labs. All rights reserved.</div></div></div></footer></div>
+</body>
+</html>
