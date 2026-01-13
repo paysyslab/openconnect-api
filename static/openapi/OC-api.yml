@@ -9,18 +9,19 @@ info:
     email: support@paysyslabs.com
   license:
     name: Apache 2.0
+    
 servers:
   - url: https://sandbox.paysyslabs.com/openconnect
     variables:
       scheme:
         default: https
       host:
-        default: sandbox.paysyslabs.com/OpenConnect
+        default: sandbox.paysyslabs.com/openconnect
       port:
         default: "443"
 
 # servers:
-#   - url: http://localhost:3006
+#   - url: http://localhost:3009/openconnect-api
 #     description: Local development server
 
 tags:
