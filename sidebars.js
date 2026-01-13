@@ -5,6 +5,7 @@ const sidebars = {
     { type: "doc", id: "introduction" },
     { type: "doc", id: "developerworkflow" },
     { type: "doc", id: "dataTypeRef" },
+    { type: "doc", id: "apidocs" },
   ],
 };
 

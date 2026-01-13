@@ -93,7 +93,7 @@ function HomepageHeader() {
             className={styles.ctaButtonSecondary}
             to="/api-specifications"
           >
-            API Reference
+            API Specifications
           </Link>
         </div>
       </div>

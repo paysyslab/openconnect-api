@@ -7,10 +7,10 @@ const config = {
   tagline: 'Enterprise Integration Middleware enabling secure, scalable, and real-time payment orchestration across banks, schemes, and digital channels',
   favicon: 'img/favicon.png',
 
-  // GitHub Pages config (repo: paysyslab/openconnect-api)
-  url: 'https://paysyslab.github.io',
+  // GitHub Pages config (repo: paysys/openconnect-api)
+  url: 'https://paysys.github.io',
   baseUrl: '/openconnect-api/',
-  organizationName: 'paysyslab',
+  organizationName: 'paysys',
   projectName: 'openconnect-api',
 
   onBrokenLinks: 'throw',
@@ -36,7 +36,7 @@ const config = {
 
           // Docs as homepage
           routeBasePath: '/', // Keep the homepage as the docs section
-          editUrl: 'https://github.com/paysyslab/openconnect-api/tree/main/',
+          editUrl: 'https://github.com/paysys/openconnect-api/tree/main/',
         },
         blog: false,
         theme: {
@@ -56,7 +56,7 @@ const config = {
         showNavLink: false,
         configuration: {
           // Make sure this file exists at: static/openapi/openconnect-api.yaml
-          url: 'openapi/openconnect-api.yml',
+          url: 'openapi/OC-api.yml',
 
           layout: 'modern',
           theme: 'default',
@@ -102,7 +102,7 @@ const config = {
         // { to: '/backoffice', label: 'Back Office', position: 'left' },
         { to: '/api-specifications', label: 'API Specification', position: 'left' },
         { to: '/backoffice', label: 'Back Office', position: 'left' },
-        { href: 'https://github.com/paysyslab/openconnect-api', label: 'GitHub', position: 'right' },
+        { href: 'https://github.com/paysys/openconnect-api', label: 'GitHub', position: 'right' },
       ],
     },
 
@@ -113,7 +113,7 @@ const config = {
           title: 'Documentation',
           items: [
             { label: 'Introduction', to: '/introduction' },
-            { label: 'API Specification', to: '/api-specification' },
+            { label: 'API Specification', to: '/api-specifications' },
             { label: 'Back Office', to: '/backoffice' },
           ],
         },

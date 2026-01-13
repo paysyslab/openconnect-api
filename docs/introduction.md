@@ -1,187 +1,295 @@
 ---
 id: introduction
-title: Introduction
+title: Introduction to OpenConnect
 sidebar_position: 1
 ---
 
-# OpenConnect — Enterprise Integration Middleware
-![OpenConnect Functional Flow](/img/OC-flow.png)
+# OpenConnect — Enterprise Payment Middleware
+
+![OpenConnect Architecture](/img/OC-flow.png)
+
+OpenConnect is an **enterprise-grade API middleware** that orchestrates real-time payments, financial messaging, and transaction flows across banks, EMIs, fintechs, and payment schemes. It acts as a centralized switching layer, enabling secure, compliant, and scalable payment processing.
 
 ---
 
-## Overview
+## 🎯 Purpose & Value
 
-**OpenConnect** is an **enterprise-grade integration middleware** designed to orchestrate **real-time payments, financial messaging, and consent-based transaction flows** across banks, EMIs, fintechs, and payment schemes.
+Modern payment ecosystems require:
 
-It serves as a **centralized switching and orchestration layer**, enabling institutions to expose standardized APIs to digital channels while abstracting the underlying complexity of payment rails, scheme protocols, and regulatory compliance.
+| Requirement | Solution |
+|-------------|----------|
+| **Instant Payments** | Real-time processing on multiple rails |
+| **Regulatory Compliance** | Built-in validation and audit trails |
+| **Multi-Scheme Support** | Single API for all payment types |
+| **Security & Transparency** | End-to-end encryption and traceability |
+| **Scalability** | High-throughput, low-latency processing |
 
-OpenConnect ensures that **digital channels, core banking systems, and national payment schemes** can communicate securely, reliably, and at scale.
+OpenConnect delivers these capabilities by:
 
----
-
-## Business Context & Purpose
-
-Modern payment ecosystems demand:
-
-- Instant and always-available payments  
-- Multiple transaction types on a single platform  
-- Regulatory alignment with central banks and payment schemes  
-- Secure, auditable, and consent-driven flows  
-
-OpenConnect addresses these requirements by acting as the **participant-side middleware**, responsible for:
-
-- Receiving API requests from channels and partners  
-- Validating business, regulatory, and technical rules  
-- Orchestrating requests to appropriate payment rails  
-- Normalizing responses back to channels  
-
-This approach allows institutions to **scale payment capabilities without coupling channels directly to schemes**.
+✅ **Centralizing** payment orchestration  
+✅ **Normalizing** APIs across different schemes  
+✅ **Validating** business rules and compliance  
+✅ **Routing** transactions intelligently  
+✅ **Auditing** every transaction end-to-end  
 
 ---
 
-## OpenConnect Functional Capabilities (High-Level)
+## 🚀 Core Capabilities
 
-The diagram above illustrates how OpenConnect acts as the **central hub**, supporting multiple payment and non-payment use cases through a single integration layer.
+### 1. **Person-to-Person (P2P) Payments**
 
-### 1. Bulk Payments
+Enable instant, secure user-to-user transfers using:
+- Mobile numbers (MSISDN)
+- National IDs (CNIC)
+- IBANs
+- Email addresses
 
-Supports **high-volume, time-critical disbursements**, including:
+**Use Cases**: Remittances, family transfers, bill splitting
 
-- Salary payments  
-- Government subsidies  
-- Refunds and reimbursements  
-- Corporate mass payouts  
-
-OpenConnect validates each instruction, processes batches efficiently, and ensures **traceability at both batch and instruction level**.
-
----
-
-### 2. P2P (Person-to-Person Payments)
-
-Enables **instant, secure user-to-user transfers**, typically using:
-
-- Mobile numbers  
-- National IDs  
-- IBANs or wallet identifiers  
-
-OpenConnect manages **title fetch, validation, transaction routing, and response normalization**, ensuring a seamless experience for end users.
+```bash
+# Example: Transfer via RAAST (Direct Posting)
+POST /api/v3/paysyslabs/directposting
+Authorization: Bearer <token>
+{
+  "info": { "rrn": "002236987456", "stan": "987456", ... },
+  "senderinfo": { "fromAccount": "PK56AINI...", ... },
+  "receiverinfo": { "bankBIC": "NBPBPKKA", "toAccount": "PK76NBPA...", ... },
+  "paymentInfo": { "amount": 5000, "narration": "Payment", ... }
+}
+```
 
 ---
 
-### 3. Alias Management
+### 2. **Person-to-Merchant (P2M) Payments**
 
-Alias Management allows payments **without exposing full account details**.
+Enable **cashless merchant payments** via:
+- Static QR codes
+- Dynamic QR codes
+- Request-to-Pay (RTP) flows
 
-Supported aliases typically include:
-- Mobile number (MSISDN)  
-- CNIC / National ID  
-- Email  
-- IBAN  
-
-OpenConnect maintains alias resolution and validation flows, ensuring compliance with **scheme and regulatory requirements**.
+**Use Cases**: Retail checkout, bill payment, subscription billing
 
 ---
 
-### 4. PISP (Payment Initiation Service Provider)
+### 3. **Bulk Payments & Disbursements**
 
-Enables **consent-based payment initiation** by third-party applications.
+Support **high-volume, time-critical payouts**:
+- Salary payments
+- Government subsidies
+- Refunds and reimbursements
+- Corporate mass payouts
 
-Key responsibilities include:
-- Secure consent handling  
-- Tokenized access to user accounts  
-- Controlled initiation of payments on behalf of users  
-
-This capability is critical for **open banking and regulated fintech integrations**.
-
----
-
-### 5. E-Mandate Management
-
-Supports **recurring and automated payments** based on explicit user consent.
-
-Typical use cases:
-- Utility bills  
-- Subscriptions  
-- Installments  
-- Scheduled transfers  
-
-OpenConnect ensures mandates are:
-- Securely registered  
-- Auditable  
-- Enforced strictly according to consent terms  
+**Key Feature**: Batch-level and instruction-level traceability
 
 ---
 
-### 6. P2M (Person-to-Merchant Payments)
+### 4. **Bill Payment & Inquiries**
 
-Enables **cashless merchant payments**, including:
+Unified bill payment service supporting:
+- Electricity, water, and utility bills
+- Telecom (prepaid & postpaid)
+- Tax and government payments
+- Merchant invoices
 
-- Static QR payments  
-- Dynamic QR payments  
-- Request-to-Pay (RTP) flows  
+**Workflow**:
+1. Bill Inquiry (validate bill details)
+2. Bill Payment (process transaction)
+3. Transaction Inquiry (verify status)
 
-OpenConnect orchestrates merchant validation, amount confirmation, routing, and settlement coordination for fast and reliable checkout experiences.
-
----
-
-## Key Architectural Characteristics
-
-### Centralized Orchestration
-All payment and non-payment flows pass through a single orchestration layer, simplifying integration and governance.
-
-### Multi-Scheme Support
-Designed to integrate with:
-- National instant payment systems  
-- Interbank transfer networks  
-- Real-time and deferred settlement rails  
-
-### API-First Design
-Provides **consistent REST APIs** for all channels, regardless of underlying scheme complexity.
-
-### Security & Compliance
-- Token-based authentication  
-- Strong request validation  
-- End-to-end traceability  
-- Audit-ready logs  
-
-### Scalability & Resilience
-- Designed for high throughput  
-- Supports retries, timeouts, and asynchronous processing  
-- Decouples channels from scheme availability
+```bash
+# Example: Fetch Bill Details
+POST /api/v1/paysyslabs/payments/billinquiry
+{
+  "billInfo": {
+    "billerId": 5,
+    "consumerNo": "03132370605"
+  }
+}
+```
 
 ---
 
-## Typical Deployment Role
+### 5. **Alias Management**
 
-In a standard deployment, OpenConnect:
+Enable **privacy-preserving payments** without exposing full account details.
 
-1. Receives requests from digital channels or partner systems  
-2. Performs validation and enrichment  
-3. Converts requests into scheme-specific formats (e.g., ISO 20022)  
-4. Routes transactions to the appropriate payment rail  
-5. Receives responses and normalizes them  
-6. Returns a consistent response to the originating channel  
+Supported aliases:
+- **CNIC** (13 digits)
+- **MOBILE** (11 digits)
+- **EMAIL** (standard format)
+- **TXT** (3-35 characters)
 
-This model ensures **operational stability, regulatory compliance, and faster time-to-market**.
-
----
-
-## Who Should Use OpenConnect
-
-- **Banks** implementing instant payment and bulk disbursement services  
-- **EMIs & Wallet Providers** enabling P2P, P2M, and mandate-based payments  
-- **Fintechs & PISPs** requiring regulated, consent-driven payment initiation  
-- **Enterprises & Government Entities** executing large-scale payouts  
+**Benefit**: Users can share payment identifiers without revealing bank accounts
 
 ---
 
-## Summary
+### 6. **Payment Initiation (PISP)**
 
-OpenConnect is not just an API layer—it is a **strategic integration platform** that enables institutions to:
+Enable **consent-based third-party payment initiation** for:
+- Regulated fintech applications
+- Open banking integrations
+- Partner ecosystems
 
-- Launch new payment products faster  
-- Reduce integration complexity  
-- Maintain regulatory compliance  
-- Scale securely and reliably  
+**Security Model**: OAuth 2.0 + PKI-based consent
 
-By acting as the **central payment orchestration engine**, OpenConnect empowers organizations to participate confidently in modern real-time payment ecosystems.
+---
+
+## 🏗️ Architectural Overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│           Digital Channels & Partners                   │
+│  (Mobile Apps, Web Portals, Fintech APIs)               │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────────────┐
+│         OpenConnect API Gateway                          │
+│  (Auth, Validation, Routing, Transformation)            │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+        ┌──────────┼──────────┬──────────┐
+        ▼          ▼          ▼          ▼
+    ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
+    │ RAAST  │ │ 1LINK  │ │ NADRA  │ │Telcos  │
+    │        │ │        │ │        │ │        │
+    └────────┘ └────────┘ └────────┘ └────────┘
+```
+
+**Flow**:
+1. Channel sends API request to OpenConnect
+2. OpenConnect validates and enriches request
+3. OpenConnect converts to scheme-specific format (ISO 20022)
+4. OpenConnect routes to appropriate payment rail
+5. Response is normalized and returned to channel
+
+---
+
+## 🔐 Security Features
+
+| Feature | Implementation |
+|---------|-----------------|
+| **Authentication** | JWT Bearer tokens with PKI-based validation |
+| **Encryption** | TLS 1.2+ for all APIs, AES-256 at rest |
+| **Validation** | Input sanitization, schema validation, business rules |
+| **Audit Trail** | Immutable logs with correlation IDs for traceability |
+| **Rate Limiting** | Per-channel, per-IP throttling |
+| **Data Masking** | CNIC, account numbers masked in logs |
+
+---
+
+## 📊 Supported Payment Rails
+
+| Rail | Type | Use Case | Status |
+|------|------|----------|--------|
+| **RAAST** | Real-time P2P, P2M, Bulk | Instant transfers | ✅ Active |
+| **1LINK (IBFT)** | Interbank transfer | Next-day settlement | ✅ Active |
+| **NADRA BPS** | Bill payment aggregation | Utilities, tax | ✅ Active |
+| **Telco APIs** | Prepaid/postpaid | Mobile top-ups | ✅ Active |
+
+---
+
+## 📈 API Statistics
+
+```
+Total Endpoints:     15+ RESTful APIs
+Non-Financial:       10 (inquiry, list, validation)
+Financial:           5+ (payment processing)
+Response Time:       < 2 seconds (average)
+Availability SLA:    99.9%
+Throughput:          1000+ TPS
+```
+
+---
+
+## 🎓 Key Concepts
+
+### **Correlation ID**
+Unique identifier for tracking a transaction across all systems. Returned in every response for debugging and audit purposes.
+
+```json
+{
+  "info": {
+    "correlationId": "7ad7bf9f-99dc-4c2c-ab88-abddb87789a0"
+  }
+}
+```
+
+### **RRN & STAN**
+- **RRN** (Retrieval Reference Number): 12-digit transaction identifier
+- **STAN** (System Trace Audit Number): 6-digit sequence number
+
+### **Response Codes**
+OpenConnect uses standardized response codes:
+- `0000` = Success
+- `0401` = Invalid parameters
+- `0402` = Unauthorized
+- `0468` = Mandatory fields missing
+- `0500` = Internal error
+
+### **Request to Pay (RTP)**
+Merchant-initiated payment flow where customer approves transaction before processing:
+1. Merchant sends RTP request
+2. Customer receives notification
+3. Customer approves/rejects
+4. Payment executes based on response
+
+---
+
+## 🔄 Typical Integration Flow
+
+```mermaid
+sequenceDiagram
+  participant Channel as Digital Channel
+  participant OC as OpenConnect
+  participant Scheme as Payment Scheme
+
+  Channel->>OC: API Request (Auth header)
+  OC->>OC: Validate & Enrich
+  OC->>Scheme: Send Payment (ISO 20022)
+  Scheme->>OC: Acknowledgment
+  OC->>Channel: Normalized Response
+  Channel->>Channel: Update UI/Database
+```
+
+---
+
+## 👥 Who Should Use OpenConnect
+
+| Organization | Benefits |
+|--------------|----------|
+| **Banks** | Instant payments, bulk payouts, regulatory compliance |
+| **EMIs & Wallets** | P2P/P2M capabilities, brand-agnostic processing |
+| **Fintechs** | PISP features, open banking integration |
+| **Government** | Subsidy disbursement, tax collection |
+| **Enterprises** | Mass payroll, vendor payments |
+
+---
+
+## 📚 Next Steps
+
+- **[API Specifications](/api-specifications)** — Detailed endpoint documentation and OpenAPI reference
+- **[Developer Workflow](/developerworkflow)** — Setup, testing, and deployment
+- **[Data Type Reference](/dataTypeRef)** — Field definitions and data structures
+- **[Back Office](/backoffice)** — Administrative and management features
+
+---
+
+## 💡 Quick Facts
+
+- **Language**: Node.js / REST API
+- **API Spec**: OpenAPI 3.0.3 (Swagger)
+- **Base URL**: `http://localhost:3006` (local) | `https://api.openconnect.paysyslabs.com` (production)
+- **Response Format**: JSON
+- **Auth Method**: Bearer Token (JWT)
+- **Rate Limit**: 100 requests / 15 minutes per IP
+
+---
+
+**Need Help?**  
+📧 Email: support@paysyslabs.com  
+📖 Docs: https://docs.openconnect.paysyslabs.com  
+🐛 Issues: Create an issue in the GitHub repository  
+
+**Last Updated**: January 2024  
+**Version**: 1.0.0
